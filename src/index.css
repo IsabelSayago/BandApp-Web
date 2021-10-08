@@ -1,13 +1,59 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.background {
+  background-color: #9c4848;
+  width: inherit;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.burgerMenu {
+  flex: 1;
+  justify-items: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.divForm {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.form {
+  height: 16rem;
+  width: 12rem;
+  background-color: white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.label {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  margin: 0.5rem;
+}
+
+.textInput {
+  width: 10rem;
+  height: 1.2rem;
+  border-radius: 0.2rem;
+  background-color: #ac8181;
+  margin: 0.5rem;
+}
+
+.loginButton {
+  border-radius: 0.1rem;
+}
+.error {
+  font-family: "Roboto", sans-serif;
+  color: #9c4848;
+  font-size: 0.1rem;
 }

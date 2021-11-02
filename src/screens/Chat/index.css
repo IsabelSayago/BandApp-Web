@@ -1,0 +1,79 @@
+.chatBackground {
+  height: 100vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #9c4848;
+  padding-left: 2rem;
+  padding-top: 0.1rem;
+}
+
+.chatContainer {
+  width: 30rem;
+  height: 95vh;
+  background-color: rgb(255, 255, 255);
+  border-top-left-radius: 0.1rem;
+  border-top-right-radius: 0.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatTitle {
+  color: #ffffff;
+  position: absolute;
+  font-size: 3rem;
+  font-family: "Roboto";
+  font-weight: 200;
+  left: 1.8rem;
+  top: 0.2rem;
+}
+
+.chatMessages {
+  background-color: rgb(255, 255, 255);
+  width: 28rem;
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+  border-color: rgb(230, 230, 230);
+  border-width: 0.1rem;
+  border-style: solid;
+}
+
+.buttonSend {
+  justify-items: flex-end;
+  justify-self: flex-end;
+  justify-content: flex-end;
+  color: white;
+  background-color: #a15b5b;
+  font-family: "Roboto";
+  font-weight: 200;
+  border-radius: 0.2rem;
+  border-color: transparent;
+  font-size: 1.3rem;
+}
+
+.buttonSend:hover {
+  background-color: #a87373;
+}
+
+.friendDetails {
+  font-family: "Roboto";
+  font-size: "1rem";
+  display: flex;
+  flex-direction: row;
+  width: inherit;
+  align-items: center;
+  padding-left: 1.5rem;
+}
+
+.details {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}

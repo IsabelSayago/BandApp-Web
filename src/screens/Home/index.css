@@ -1,0 +1,9 @@
+.homePicture {
+  width: 16rem;
+  height: 16rem;
+  background-size: cover;
+  align-self: center;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 4rem;
+}

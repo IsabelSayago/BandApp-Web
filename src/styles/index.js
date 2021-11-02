@@ -26,24 +26,25 @@ export const Button = styled.button`
   background-size: 110%;
   background-position: center;
   margin: 1px;
-  width: 12rem;
-  height: 2rem;
+  width: 20rem;
+  height: 4rem;
   border-radius: 4px;
   border-width: 0px;
   text-align: center;
   font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
 
   &:hover {
     opacity: 80%;
   }
 `;
 
-export const Link = styled.a`
+export const LinkStyle = styled.a`
   margin-top: 20px;
   margin-bottom: 5px;
   text-align: left;
   color: white;
-  font-size: 9px;
+  font-size: 1rem;
   font-family: "Roboto", sans-serif;
 
   &:hover {

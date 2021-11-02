@@ -4,31 +4,26 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router";
 
 import Burger from "../../components/Burger";
 import Menu from "../../components/Menu";
 import TextInput from "../../components/TextInput";
-import { findRenderedDOMComponentWithClass } from "react-dom/test-utils";
 import logo from "../../assets/logo.png";
-import { useAuth } from "../../components/ProvideAuth";
+import { useHistory } from "react-router";
 
-function Login() {
+const Recovery = () => {
   const [open, setOpen] = useState(false);
-  let history = useHistory();
-  let location = useLocation();
-  let auth = useAuth();
 
-  let { from } = location.state || { from: { pathname: "/" } };
+  let history = useHistory();
 
   const redirectTo = (screen) => {
     history.push(screen);
   };
   return (
-    <div className="background">
+    <div className="backgroundWhite">
       <div className="burgerMenu">
-        <Burger open={open} setOpen={setOpen} />
-        <Menu open={open} setOpen={setOpen} />
+        <Burger open={open} setOpen={setOpen} recovery={true} />
+        <Menu open={open} setOpen={setOpen} recovery={true} />
       </div>
       <button
         className="loginPicture"
@@ -37,23 +32,23 @@ function Login() {
         }}
         onClick={() => redirectTo("/")}
       />
+
       <div className="divForm">
         <div className="form">
           <Formik
             initialValues={{
               email: "",
-              password: "",
             }}
             validationSchema={Yup.object({
               email: Yup.string()
                 .email("Invalid email address")
                 .required("Required"),
-              password: Yup.string().required("Required"),
             })}
-            onSubmit={() => {
-              auth.signin(() => {
-                alert("hi");
-              });
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                setSubmitting(false);
+              }, 400);
             }}
           >
             <Form
@@ -64,24 +59,14 @@ function Login() {
               }}
             >
               <TextInput
-                label="Email"
+                label="Recover password"
                 name="email"
                 type="email"
-                placeholder="email@address.com"
+                placeholder="Type your e-mail"
                 labelLogin={true}
               />
-
-              <TextInput
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="********"
-                labelLogin={true}
-              />
-
-              <button className="loginButton" type="submit">
-                {" "}
-                Let's play!
+              <button type="submit" className="recoverButton">
+                Submit
               </button>
             </Form>
           </Formik>
@@ -89,6 +74,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default Recovery;

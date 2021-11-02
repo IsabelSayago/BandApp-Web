@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-//import hamburger from "../assets/HamburgerIcon.png";
-
 const StyledBurger = styled.button`
   position: absolute;
   top: 5%;
@@ -10,8 +8,8 @@ const StyledBurger = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
+  width: 4rem;
+  height: 4rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -23,9 +21,16 @@ const StyledBurger = styled.button`
   }
 
   div {
-    width: 2rem;
-    height: 0.25rem;
-    background-color: ${({ open }) => (open ? "#9C4848" : "white")};
+    width: 4rem;
+    height: 0.5rem;
+    background-color: ${({ open, recovery }) =>
+      open && recovery
+        ? "white"
+        : open
+        ? "#9c4848"
+        : recovery
+        ? "#9c4848"
+        : "white"};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -44,13 +49,12 @@ const StyledBurger = styled.button`
   }
 `;
 
-const Burger = ({ open, setOpen }) => {
+const Burger = ({ open, setOpen, recovery }) => {
   return (
     <StyledBurger
-      //aria-expanded={isExpanded}
       open={open}
       onClick={() => setOpen(!open)}
-      //{...props}
+      recovery={recovery}
     >
       <div />
       <div />
@@ -58,27 +62,5 @@ const Burger = ({ open, setOpen }) => {
     </StyledBurger>
   );
 };
-
-/* function Burger() {
-  return (
-    <button
-      style={{
-        backgroundImage: `url(${hamburger})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundColor: "transparent",
-        borderRadius: "2px",
-        borderWidth: "0px",
-        height: "45%",
-        width: "6%",
-        margin: "3px",
-        "&:hover": {
-          opacity: "80%",
-        },
-      }}
-      onClick={() => alert("Menu")}
-    ></button>
-  );
-} */
 
 export default Burger;

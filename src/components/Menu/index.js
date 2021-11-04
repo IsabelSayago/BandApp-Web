@@ -1,22 +1,42 @@
+import React, { useContext } from "react";
+
 import { FiLogOut } from "react-icons/fi";
-import React from "react";
+import GlobalContext from "../../contexts/global";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Menu = ({ open, recovery, welcome }) => {
+  const { authData, setAuthData, setAuthenticated, applyLogout } =
+    useContext(GlobalContext);
+
   return (
     <div>
       {welcome && (
         <StyledMenu open={open} recovery={recovery}>
+          <Link to="/myprofile">My Profile </Link>
+          <Link to="/signup"> Another SignUp </Link>
+          <a href="/signup">SignUp</a>
+          <a href="/myprofile">Another Profile</a>
+
+          {/* <ul>
+            <li onClick={() => navigate("/myprofile")}>My Profile</li>
+          </ul> */}
+          {/* <Link></Link>
           <a href="/myprofile">My Profile</a>
           <a href="/friends">Friends</a>
           <a href="/groups">Groups</a>
           <a href="/myprofile">Bookings</a>
           <a href="/searchfriends">Search Friends</a>
-          <a href="/myprofile">Search Rooms</a>
-          <div className="logout">
+          <a href="/myprofile">Search Rooms</a> */}
+          <button
+            className="logout"
+            onClick={() => {
+              applyLogout();
+            }}
+          >
             <FiLogOut />
-            <a href="/">LogOut</a>
-          </div>
+            LogOut
+          </button>
         </StyledMenu>
       )}
       {!welcome && (
@@ -24,6 +44,7 @@ const Menu = ({ open, recovery, welcome }) => {
           <a href="/signup">SignUp</a>
           <a href="/login">Login</a>
           <a href="/myprofile">About</a>
+          <Link to="/signup">Another Signup </Link>
         </StyledMenu>
       )}
     </div>

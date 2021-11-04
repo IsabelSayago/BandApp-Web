@@ -3,21 +3,24 @@ import "../../index.css";
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 
 import Burger from "../../components/Burger";
+import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
 import TextInput from "../../components/TextInput";
-import { findRenderedDOMComponentWithClass } from "react-dom/test-utils";
 import logo from "../../assets/logo.png";
-import { useAuth } from "../../components/ProvideAuth";
+
+// import { useAuth } from "../../components/ProvideAuth";
 
 function Login() {
   const [open, setOpen] = useState(false);
+  const { setAuthData, setAuthenticated } = useContext(GlobalContext);
   let history = useHistory();
   let location = useLocation();
-  let auth = useAuth();
+  // let auth = useAuth();
+  const URL_API = "https://apichathello.herokuapp.com/login";
 
   let { from } = location.state || { from: { pathname: "/" } };
 
@@ -50,10 +53,32 @@ function Login() {
                 .required("Required"),
               password: Yup.string().required("Required"),
             })}
-            onSubmit={() => {
-              auth.signin(() => {
-                alert("hi");
+            onSubmit={async (values, actions) => {
+              const response = await fetch(URL_API, {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: values.email,
+                  password: values.password,
+                }),
+              }).catch((err) => {
+                if (err & err.message) {
+                  console.log(err.message);
+                }
               });
+              if (response.ok) {
+                const res = await response.json();
+                localStorage.setItem("userData", JSON.stringify(res));
+                setAuthData(res);
+                setAuthenticated(true);
+                redirectTo("/welcome");
+              } else {
+                alert("Invalid e-mail or password");
+              }
+              actions.resetForm();
             }}
           >
             <Form

@@ -1,10 +1,12 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Burger from "../../components/Burger";
+import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
+import { ProvideAuth } from "../../components/ProvideAuth";
 import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
 import { useHistory } from "react-router";
@@ -13,10 +15,16 @@ const SignUp = () => {
   const [open, setOpen] = useState(false);
   let history = useHistory();
 
-  const URL_API = "https://band-app-back.herokuapp.com/users";
+  const { setAuthData, setAuthenticated } = useContext(GlobalContext);
+
+  const URL_API = "https://apichathello.herokuapp.com/signup";
 
   const redirectTo = (screen) => {
     history.push(screen);
+  };
+
+  const saveLocalStorage = (dataFromUser) => {
+    return localStorage.setItem("userData", JSON.stringify(dataFromUser));
   };
   return (
     <div className="background">
@@ -81,9 +89,13 @@ const SignUp = () => {
                 }
               });
               console.log(response);
+
               if (response.ok) {
                 const res = await response.json();
+                saveLocalStorage(res);
                 console.log(res);
+                setAuthData(res);
+                setAuthenticated(true);
                 /* setAuthData(res)
                 setAuthenticated(true); */
                 alert("Welcome to BandApp!");

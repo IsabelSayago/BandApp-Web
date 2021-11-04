@@ -1,83 +1,85 @@
 import React, { createContext, useContext, useState } from "react";
 import { Redirect, Route, useHistory, useLocation } from "react-router";
 
-const authContext = createContext();
+import GlobalContext from "../../contexts/global";
 
-const myAuth = {
-  isAuthenticated: true,
-  signin(cb) {
-    myAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // simulando async
-  },
-  signout(cb) {
-    myAuth.isAuthenticated = false;
-    setTimeout(cb, 100); // simulando async
-  },
-};
+// const AuthContext = createContext(authUser);
 
-const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
-  let history = useHistory();
-  const redirectTo = (screen) => {
-    history.push(screen);
-  };
+// const myAuth = {
+//   isAuthenticated: false,
+//   signin(cb) {
+//     myAuth.isAuthenticated = true;
+//     // simulando async
+//   },
+//   signout(cb) {
+//     myAuth.isAuthenticated = false;
+//     setTimeout(cb, 100); // simulando async
+//   },
+// };
 
-  const signin = (cb) => {
-    return myAuth.signin(() => {
-      setUser((prev) => "user");
-      console.log(user);
-      cb();
-      console.log(user);
-      console.log(myAuth.isAuthenticated);
-    });
-  };
+// const useProvideAuth = () => {
+//   const [user, setUser] = useState({});
 
-  const signout = (cb) => {
-    return myAuth.signout(() => {
-      setUser(null);
-      cb();
-    });
-  };
+//   const signin = (cb) => {
+//     return myAuth.signin(() => {
+//       console.log(user);
+//       setUser("Sayago");
+//       localStorage.setItem("user", JSON.stringify(user));
+//       console.log(user);
+//       console.log(myAuth.isAuthenticated);
+//     });
+//   };
 
-  return {
-    user,
-    signin,
-    signout,
-  };
-};
+//   const signout = (cb) => {
+//     return myAuth.signout(() => {
+//       setUser(null);
+//       cb();
+//     });
+//   };
 
-function useAuth() {
-  return useContext(authContext);
-}
+//   return {
+//     user,
+//     setUser,
+//   };
+// };
 
-const ProvideAuth = ({ children }) => {
-  const auth = useProvideAuth();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-};
+// function useAuth() {
+//   return useContext(AuthContext);
+// }
 
-function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
+// const ProvideAuth = ({ children }) => {
+//   const auth = useProvideAuth();
+//   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+// };
+
+// <Route path="/login" component={Login} />
+const PrivateRoute = ({ children, ...rest }) => {
+  const { authenticated } = useContext(GlobalContext);
+  //const login = localStorage.getItem("userData");
+  // let auth = useAuth();
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        auth.user ? (
+      render={(props) =>
+        authenticated ? (
           children
         ) : (
-          <Redirect to={{ pathname: "/", state: { from: location } }} />
+          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
         )
       }
     />
   );
-}
+};
 
-function PublicRoute({ children, ...rest }) {
-  let auth = useAuth();
+const PublicRoute = ({ children, ...rest }) => {
+  // let auth = useAuth();
+  const { authenticated } = useContext(GlobalContext);
+  // const login = localStorage.getItem("userData");
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        authenticated ? (
           <Redirect to={{ pathname: "/welcome", state: { from: location } }} />
         ) : (
           children
@@ -85,6 +87,15 @@ function PublicRoute({ children, ...rest }) {
       }
     />
   );
-}
+};
 
-export { ProvideAuth, PrivateRoute, PublicRoute, useAuth, useProvideAuth };
+export { PrivateRoute, PublicRoute };
+
+// export {
+//   ProvideAuth,
+//   PrivateRoute,
+//   PublicRoute,
+//   useAuth,
+//   useProvideAuth,
+//   AuthContext,
+// };

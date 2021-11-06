@@ -62,7 +62,7 @@ const Chat = () => {
             }}
           >
             <div className="chatMessages"></div>
-            <input></input>
+            <input style={{ height: "3.5rem" }}></input>
             <button type="button" className="buttonSend">
               Send
             </button>

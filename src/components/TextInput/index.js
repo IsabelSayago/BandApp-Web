@@ -18,7 +18,7 @@ const TextInput = ({ label, labelLogin, labelSignUp, ...props }) => {
       {meta.touched && meta.error ? (
         <div
           className="error"
-          style={labelSignUp ? { color: "white" } : { color: "#9c4848" }}
+          style={labelSignUp ? { color: "#9c4848" } : { color: "#9c4848" }}
         >
           {meta.error}
         </div>

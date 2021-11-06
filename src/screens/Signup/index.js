@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import React, { useContext, useState } from "react";
 
 import Burger from "../../components/Burger";
+import { FiPlusCircle } from "react-icons/fi";
 import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
 import { ProvideAuth } from "../../components/ProvideAuth";
@@ -16,6 +17,8 @@ const SignUp = () => {
   const [open, setOpen] = useState(false);
   let history = useHistory();
 
+  const [instruments, setInstruments] = useState([]);
+
   const { setAuthData, setAuthenticated } = useContext(GlobalContext);
 
   const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
@@ -26,6 +29,16 @@ const SignUp = () => {
 
   const saveLocalStorage = (dataFromUser) => {
     return localStorage.setItem("userData", JSON.stringify(dataFromUser));
+  };
+
+  const addInstrument = () => {
+    const name = window.prompt("Type instrument");
+    const instrumentCreated = { id: uuidv4(), name: name, active: true };
+    setInstruments((prev) => [...prev, instrumentCreated]);
+  };
+
+  const deleteInstrument = (id) => {
+    return setInstruments((prev) => prev.filter((obj) => obj.id !== id));
   };
   return (
     <div className="background">
@@ -78,7 +91,7 @@ const SignUp = () => {
                   email: values.email,
                   password: values.password,
                   surname: values.name,
-                  instruments: [{ id: uuidv4(), name: "Guitar", active: true }],
+                  instruments: instruments,
                   friends: [],
                   genres: [],
                   bio: "This is your intro",
@@ -157,8 +170,56 @@ const SignUp = () => {
                 labelSignUp={true}
               />
 
-              <label htmlFor="">Instruments</label>
-              <div className="addInstrument"></div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "14rem",
+                }}
+              >
+                <label className="labelInstruments" htmlFor="">
+                  Instruments
+                </label>
+                <button className="buttonAddInstrument" onClick={addInstrument}>
+                  <FiPlusCircle style={{ height: "1.5rem", width: "1.5rem" }} />
+                </button>
+              </div>
+
+              {instruments.length > 0 ? (
+                <div className="addInstrument">
+                  {instruments.map((instrument) => (
+                    <button
+                      key={instrument.id}
+                      className="activeInstrument"
+                      style={
+                        instrument.active
+                          ? { backgroundColor: "#9c4848" }
+                          : {
+                              backgroundColor: "white",
+                              color: "#9c4848",
+                              fontWeight: "bold",
+                              border: "solid",
+                              borderWidth: "0.1rem",
+                              borderColor: "grey",
+                            }
+                      }
+                      onClick={() => deleteInstrument(instrument.id)}
+                    >
+                      {instrument.name}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <h6
+                  style={{
+                    marginBottom: "0.2rem",
+                    fontFamily: "Roboto",
+                    marginTop: "0rem",
+                  }}
+                >
+                  - No instruments added -
+                </h6>
+              )}
 
               <button className="signUpButton" type="submit">
                 Create Account

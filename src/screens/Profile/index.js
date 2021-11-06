@@ -17,7 +17,7 @@ const Profile = () => {
   const [userName, setUserName] = useState("Isabel Sayago");
 
   // JSON.parse(authData).bio
-  const [bio, setBio] = useState("La bio");
+  const [bio, setBio] = useState("This is my story...");
 
   const [enable, setEnable] = useState(true);
 
@@ -25,6 +25,12 @@ const Profile = () => {
   const [password, setPassword] = useState("password");
 
   const [confirmPassword, setConfirmPassword] = useState("password");
+
+  // Usar el mail del objeto
+  const [email, setEmail] = useState("i@i.com");
+
+  // JSON.parse(authData).city
+  const [city, setCity] = useState("Buenos Aires");
 
   // Pasarle los instrumentos del usuario JSON.parse(authData).instruments
 
@@ -36,12 +42,6 @@ const Profile = () => {
     { id: 5, name: "Drums", active: true },
   ];
   const [selectInstruments, setSelectInstruments] = useState(instruments);
-
-  // Usar el mail del objeto
-  const [email, setEmail] = useState("i@i.com");
-
-  // JSON.parse(authData).city
-  const [city, setCity] = useState("Buenos Aires");
 
   let history = useHistory();
 

@@ -42,8 +42,8 @@ body {
 }
 
 .form {
-  height: 24rem;
-  width: 18rem;
+  height: 28rem;
+  width: 20rem;
   background-color: white;
   border-radius: 3px;
   display: flex;
@@ -71,6 +71,14 @@ body {
 }
 
 .labelSignUp {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+  color: #9c4848;
+  align-self: flex-start;
+}
+
+.labelInstruments {
   font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
   margin-top: 0.3rem;
@@ -230,8 +238,8 @@ body {
 }
 
 .loginPicture {
-  width: 11rem;
-  height: 11rem;
+  width: 9rem;
+  height: 9rem;
   background-size: cover;
   align-self: center;
   top: 1rem;
@@ -264,7 +272,7 @@ body {
   height: 2rem;
   width: 14rem;
   border: none;
-  background-color: gray;
+  background-color: white;
 }
 
 /* SearchFriends */

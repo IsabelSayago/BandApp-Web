@@ -38,11 +38,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .form {
-  height: 22rem;
+  height: 24rem;
   width: 18rem;
   background-color: white;
   border-radius: 3px;
@@ -72,10 +72,9 @@ body {
 
 .labelSignUp {
   font-family: "Roboto", sans-serif;
-  font-size: 0.7rem;
-  margin-left: 0.85rem;
+  font-size: 1.2rem;
   margin-top: 0.3rem;
-  color: white;
+  color: #9c4848;
   align-self: flex-start;
 }
 
@@ -93,6 +92,7 @@ body {
 .textInput::placeholder {
   color: #a88989;
   padding: 0.1rem;
+  font-size: 0.8rem;
 }
 
 .loginButton {
@@ -152,16 +152,29 @@ body {
 }
 
 /* WelcomePage */
+.welcomePicture {
+  width: 14rem;
+  height: 14rem;
+  background-size: cover;
+  align-self: center;
+  top: 3rem;
+  position: absolute;
+  border: transparent;
+  background-color: transparent;
+}
 
+.welcomePicture:hover {
+  cursor: grab;
+}
 .reunionsButton {
-  width: 12rem;
-  height: 2rem;
+  width: 20rem;
+  height: 4rem;
   background-color: #ffffff;
   border-radius: 0.1rem;
   top: 12rem;
   border: none;
   font-family: "Roboto", sans-serif;
-  font-size: 0.6rem;
+  font-size: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -172,8 +185,8 @@ body {
 }
 
 .detailsReunion {
-  width: 6.5rem;
-  height: 7rem;
+  width: 10rem;
+  height: 10rem;
   background-color: #ffffff;
   border-radius: 0.1rem;
   border: none;
@@ -186,6 +199,8 @@ body {
   height: 1rem;
   border-radius: 50%;
   background-color: rgb(60, 224, 60);
+  margin-right: 0.7rem;
+  margin-left: 0.5rem;
 }
 
 .circleRed {
@@ -193,13 +208,15 @@ body {
   height: 1rem;
   border-radius: 50%;
   background-color: rgb(216, 26, 26);
+  margin-right: 0.7rem;
+  margin-left: 0.5rem;
 }
 
 .reunionContainer {
   align-self: center;
   display: flex;
-  width: 12rem;
-  height: 10rem;
+  width: 20rem;
+  height: 16rem;
   justify-content: flex-end;
 }
 
@@ -212,142 +229,9 @@ body {
   align-items: center;
 }
 
-/* Profile */
-
-.profileBackground {
-  height: 100vh;
-  width: 90vw;
-  flex-direction: column;
-  background-color: white;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  display: flex;
-  padding-left: 2.5rem;
-}
-
-.name {
-  font-family: "Roboto", sans-serif;
-}
-.name > h5 {
-  font-size: 1rem;
-  margin-bottom: 0;
-  margin-top: 0.7rem;
-}
-
-.name > h2 {
-  font-size: 2rem;
-  margin-top: 0.3rem;
-  margin-bottom: 0;
-}
-
-.name > h6 {
-  font-size: 1rem;
-  margin-top: 0.3rem;
-  margin-bottom: 0.2rem;
-}
-
-.emailInstruments {
-  display: flex;
-  flex-direction: row;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-weight: lighter;
-  width: 90vw;
-  column-gap: 0.2rem;
-}
-
-.emailPassword {
-  display: flex;
-  flex-direction: column;
-  column-gap: 0.1rem;
-  width: 40vw;
-}
-
-.text {
-  margin-bottom: 0.1rem;
-}
-
-.instruments {
-  display: flex;
-  flex-direction: column;
-  width: 40vw;
-}
-
-.selectedInstruments {
-  display: flex;
-  flex-flow: row wrap;
-  overflow-y: scroll;
-  width: inherit;
-  height: 3rem;
-  margin-bottom: 1rem;
-}
-
-.activeInstrument {
-  width: 48%;
-  background-color: #9c4848;
-  border-radius: 0.1rem;
-  border: 0.1rem;
-  font-family: "Roboto", sans-serif;
-  margin-left: 0.1rem;
-  margin-bottom: 0.2rem;
-}
-
-.activeInstrument:hover {
-  background-color: #9e6d6d;
-}
-
-.buttonAddInstrument {
-  border: none;
-  display: flex;
-  background-color: transparent;
-}
-
-.bio {
-  border-radius: 0.2rem;
-  background-color: white;
-  width: 80vw;
-  height: 5rem;
-  border-width: 0.1rem;
-  border: lightgray solid;
-  display: flex;
-  justify-content: center;
-}
-
-.textBio {
-  width: 78vw;
-  height: 4.1rem;
-  align-self: center;
-  border-radius: 0.1rem;
-  border: solid rgb(226, 225, 225);
-  word-wrap: break-word;
-  font-size: 0.7rem;
-  font-family: "Roboto", sans-serif;
-}
-
-.maxLengthText {
-  font-size: 0.4rem;
-  font-family: "Roboto", sans-serif;
-}
-
-.buttonProfile {
-  width: 6rem;
-  height: 1.5rem;
-  margin-top: 0.5rem;
-  border: rgb(224, 222, 222) solid;
-  border-radius: 0.2rem;
-  background-color: #9e6d6d;
-  align-self: flex-start;
-  font-size: 0.7rem;
-  color: rgb(58, 57, 57);
-  font-family: "Roboto", sans-serif;
-}
-
-.buttonProfile:hover {
-  background-color: rgb(165, 164, 164);
-}
-
 .loginPicture {
-  width: 14rem;
-  height: 14rem;
+  width: 11rem;
+  height: 11rem;
   background-size: cover;
   align-self: center;
   top: 1rem;
@@ -373,6 +257,14 @@ body {
 
 .signUpPicture:hover {
   cursor: grab;
+}
+
+.addInstrument {
+  overflow-y: scroll;
+  height: 2rem;
+  width: 14rem;
+  border: none;
+  background-color: gray;
 }
 
 /* SearchFriends */

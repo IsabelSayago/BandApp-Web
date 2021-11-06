@@ -14,9 +14,11 @@ const Menu = ({ open, recovery, welcome }) => {
       {welcome && (
         <StyledMenu open={open} recovery={recovery}>
           <Link to="/myprofile">My Profile </Link>
-          <Link to="/signup"> Another SignUp </Link>
+          <Link to="/friends">Friends</Link>
+          <Link to="/searchfriends">Search Friends</Link>
+          {/* <Link to="/signup"> Another SignUp </Link>
           <a href="/signup">SignUp</a>
-          <a href="/myprofile">Another Profile</a>
+          <a href="/myprofile">Another Profile</a> */}
 
           {/* <ul>
             <li onClick={() => navigate("/myprofile")}>My Profile</li>
@@ -44,7 +46,6 @@ const Menu = ({ open, recovery, welcome }) => {
           <a href="/signup">SignUp</a>
           <a href="/login">Login</a>
           <a href="/myprofile">About</a>
-          <Link to="/signup">Another Signup </Link>
         </StyledMenu>
       )}
     </div>
@@ -57,9 +58,9 @@ const StyledMenu = styled.nav`
   justify-content: center;
   background-color: ${({ recovery }) => (recovery ? "#9c4848" : "white")};
   height: 100vh;
-  width: 13rem;
+  width: 19rem;
   text-align: left;
-  padding-left: 1rem;
+  padding-left: 2rem;
   position: absolute;
   top: 0;
   left: 0;

@@ -123,43 +123,6 @@ const SearchFriends = () => {
       filterFriendsData();
     }
 
-    // const getLocation = () => {
-    //   let latlng;
-    //   let latitude;
-    //   let longitude;
-    //   if (!navigator.geolocation) {
-    //     setStatus("Geolocation is not supported by the browser");
-    //   } else {
-    //     setStatus("Locating...");
-    //     navigator.geolocation.getCurrentPosition(
-    //       (position) => {
-    //         console.log(position);
-    //         latitude = position.coords.latitude;
-    //         longitude = position.coords.longitude;
-    //         setLat(latitude);
-    //         setLng(longitude);
-    //       },
-    //       () => {
-    //         setStatus("Unable to retrieve your location");
-    //       }
-    //     );
-
-    //     console.log(lat);
-    //     console.log(lng);
-    //     latlng = lat + "," + lng;
-    //     console.log(latlng);
-    //   }
-
-    //   fetch(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=administrative_area_level_1&key=AIzaSyDyVQW9oSjLuHbjDiNRmgRHmixCOK2J-k4`
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => setGeoObject(data));
-    //   if (geoObject !== null) {
-    //     getCityFromGeoObject();
-    //     filterFriendsData();
-    //   }
-
     //LocationIQ
     /* fetch(`
 https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f0&lat=${lat}&lon=${lng}&format=json`)

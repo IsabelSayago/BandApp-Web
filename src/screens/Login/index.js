@@ -19,8 +19,8 @@ function Login() {
   const { setAuthData, setAuthenticated } = useContext(GlobalContext);
   let history = useHistory();
   let location = useLocation();
-  // let auth = useAuth();
-  const URL_API = "https://apichathello.herokuapp.com/login";
+
+  const URL_API_BAND = "https://band-app-back.herokuapp.com/users/login";
 
   let { from } = location.state || { from: { pathname: "/" } };
 
@@ -54,7 +54,7 @@ function Login() {
               password: Yup.string().required("Required"),
             })}
             onSubmit={async (values, actions) => {
-              const response = await fetch(URL_API, {
+              const response = await fetch(URL_API_BAND, {
                 method: "POST",
                 headers: {
                   Accept: "application/json",
@@ -69,8 +69,10 @@ function Login() {
                   console.log(err.message);
                 }
               });
+              console.log(response);
               if (response.ok) {
                 const res = await response.json();
+                console.log(res);
                 localStorage.setItem("userData", JSON.stringify(res));
                 setAuthData(res);
                 setAuthenticated(true);

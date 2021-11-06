@@ -19,15 +19,9 @@ const Welcome = () => {
         <Burger open={open} setOpen={setOpen} />
       </div>
       <div
-        // className="welcomePicture"
+        className="welcomePicture"
         style={{
-          width: "7rem",
-          height: "7rem",
-          backgroundSize: "cover",
           backgroundImage: `url(${logo})`,
-          alignSelf: "center",
-          top: "1rem",
-          position: "absolute",
         }}
       />
       <div className="reunionContainer">

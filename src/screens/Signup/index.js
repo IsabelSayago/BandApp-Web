@@ -10,6 +10,7 @@ import { ProvideAuth } from "../../components/ProvideAuth";
 import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
 import { useHistory } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 const SignUp = () => {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const SignUp = () => {
 
   const { setAuthData, setAuthenticated } = useContext(GlobalContext);
 
-  const URL_API = "https://apichathello.herokuapp.com/signup";
+  const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
 
   const redirectTo = (screen) => {
     history.push(screen);
@@ -48,6 +49,7 @@ const SignUp = () => {
               password: "",
               passwordConfirmation: "",
               city: "",
+              instruments: [],
             }}
             validationSchema={Yup.object({
               name: Yup.string().required("Required"),
@@ -64,7 +66,7 @@ const SignUp = () => {
               city: Yup.string().required("Required"),
             })}
             onSubmit={async (values, actions) => {
-              const response = await fetch(URL_API, {
+              const response = await fetch(URL_API_BAND, {
                 method: "POST",
                 headers: {
                   Accept: "application/json",
@@ -72,16 +74,14 @@ const SignUp = () => {
                 },
                 body: JSON.stringify({
                   firstname: values.name,
-                  surname: "Sayago",
+                  surname: values.name,
                   email: values.email,
                   password: values.password,
-                  instruments: [
-                    { name: "Batería", active: true },
-                    { name: "Bajo", active: false },
-                  ],
-                  genres: ["Rock", "Jazz"],
-                  friends: ["i@i.com"],
-                  bio: "Motos y música",
+                  surname: values.name,
+                  instruments: [{ id: uuidv4(), name: "Guitar", active: true }],
+                  friends: [],
+                  genres: [],
+                  bio: "This is your intro",
                 }),
               }).catch((err) => {
                 if (err & err.message) {
@@ -156,6 +156,9 @@ const SignUp = () => {
                 placeholder="Buenos Aires"
                 labelSignUp={true}
               />
+
+              <label htmlFor="">Instruments</label>
+              <div className="addInstrument"></div>
 
               <button className="signUpButton" type="submit">
                 Create Account

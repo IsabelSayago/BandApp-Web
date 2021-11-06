@@ -96,7 +96,6 @@ function App() {
           <Home />
         </PublicRoute>
       </Switch>
-      )
     </GlobalContext.Provider>
   );
 }

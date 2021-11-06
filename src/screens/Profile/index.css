@@ -1,0 +1,190 @@
+.background {
+  background-color: #9c4848;
+  width: inherit;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileBackground {
+  height: 100vh;
+  width: 90vw;
+  flex-direction: column;
+  background-color: white;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  display: flex;
+  padding-left: 2.5rem;
+}
+
+.arrowLeft {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.editPencil {
+  position: absolute;
+  right: 2rem;
+  top: 0.5rem;
+  height: 3rem;
+  width: 3rem;
+}
+
+.name {
+  font-family: "Roboto", sans-serif;
+}
+.name > h5 {
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-top: 0.7rem;
+}
+
+.name > h2 {
+  font-size: 5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+}
+
+.name > h6 {
+  font-size: 1.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.emailInstruments {
+  display: flex;
+  flex-direction: row;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: lighter;
+  width: 90vw;
+  height: 15rem;
+  column-gap: 0.2rem;
+}
+
+.emailPassword {
+  display: flex;
+  flex-direction: column;
+  column-gap: 0.1rem;
+  width: 40vw;
+  height: 15rem;
+}
+
+.password {
+  display: flex;
+  height: 9rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.emailPassword > h6 {
+  font-size: 1rem;
+}
+
+.text {
+  margin-bottom: 0.1rem;
+  height: 2rem;
+  padding: 1.1rem;
+}
+
+.text::placeholder {
+  font-size: 1.2rem;
+}
+
+.instruments {
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+}
+
+.instrumentsTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.instrumentsTitle > h6 {
+  font-size: 1rem;
+  justify-self: end;
+}
+
+.selectedInstruments {
+  display: flex;
+  flex-flow: row wrap;
+  overflow-y: scroll;
+  width: inherit;
+  height: 9rem;
+}
+
+.activeInstrument {
+  width: 48%;
+  background-color: #9c4848;
+  border-radius: 0.1rem;
+  border: 0.1rem;
+  font-family: "Roboto", sans-serif;
+  margin-left: 0.1rem;
+  margin-bottom: 0.1rem;
+  height: 2.5rem;
+  color: white;
+}
+
+.activeInstrument:hover {
+  background-color: #9e6d6d;
+}
+
+.buttonAddInstrument {
+  border: none;
+  display: flex;
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.bio {
+  border-radius: 0.2rem;
+  background-color: white;
+  width: 85vw;
+  height: 8rem;
+  border-width: 0.1rem;
+  border: lightgray solid;
+  display: flex;
+  justify-content: center;
+}
+
+.textBio {
+  width: 83.5vw;
+  height: 6rem;
+  align-self: center;
+  border-radius: 0.1rem;
+  border: solid rgb(226, 225, 225);
+  word-wrap: break-word;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.maxLengthText {
+  font-size: 0.8rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.buttonProfile {
+  width: 8.5rem;
+  height: 3.5rem;
+  margin-top: 0.5rem;
+  border: rgb(224, 222, 222) solid;
+  border-radius: 0.2rem;
+  background-color: #9e6d6d;
+  align-self: flex-start;
+  font-size: 0.9rem;
+  color: rgb(255, 255, 255);
+  font-family: "Roboto", sans-serif;
+}
+
+.buttonProfile:hover {
+  background-color: rgb(165, 164, 164);
+}

@@ -44,11 +44,10 @@ const Recovery = () => {
                 .email("Invalid email address")
                 .required("Required"),
             })}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
+            onSubmit={(values, actions) => {
+              alert("Recovery e-mail has been sent");
+              actions.resetForm();
+              redirectTo("/");
             }}
           >
             <Form

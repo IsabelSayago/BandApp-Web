@@ -2,37 +2,113 @@ import { FiArrowLeft, FiSearch } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 
 import Avatar from "boring-avatars";
+import Friends from "../Friends";
 import { useHistory } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 const SearchFriends = () => {
+  const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
   let latlng;
   let latitude;
   let longitude;
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by the browser");
-    } else {
-      setStatus("Locating...");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-          latitude = position.coords.latitude;
-          longitude = position.coords.longitude;
-          setLat(latitude);
-          setLng(longitude);
-        },
-        () => {
-          setStatus("Unable to retrieve your location");
-        }
-      );
+  // const dataFriends = [
+  //   {
+  //     id: 1,
+  //     email: "f@f.com",
+  //     name: "Jorge Sayago",
+  //     instruments: ["Piano", "Drums"],
+  //     expanded: false,
+  //     city: "Buenos Aires",
+  //   },
+  //   {
+  //     id: 2,
+  //     email: "a@a.com",
+  //     name: "Federick Bustamante",
+  //     instruments: ["Flauta", "Piano"],
+  //     expanded: false,
+  //     city: "Buenos",
+  //   },
+  //   {
+  //     id: 3,
+  //     email: "i@i.com",
+  //     name: "Isabel Sayago",
+  //     instruments: ["Violin", "Guitar"],
+  //     expanded: false,
+  //     city: "Argentina",
+  //   },
+  //   {
+  //     id: 4,
+  //     email: "d@d.com",
+  //     name: "Fernanda Bustamante",
+  //     instruments: ["Piano"],
+  //     expanded: false,
+  //     city: "New York",
+  //   },
+  //   {
+  //     id: 5,
+  //     email: "m@m.com",
+  //     name: "Sayago Bustamante",
+  //     instruments: ["Violin", "Piano", "Bass"],
+  //     expanded: false,
+  //     city: "Boston",
+  //   },
+  //   {
+  //     id: 6,
+  //     email: "z@z.com",
+  //     name: "Bustamante Isabel",
+  //     instruments: ["Violin", "Piano", "Guitar"],
+  //     expanded: false,
+  //     city: "Madrid",
+  //   },
+  //   {
+  //     id: 7,
+  //     email: "y@y.com",
+  //     firstname: "Maria Bustamante",
+  //     instruments: ["Bass", "Piano"],
+  //     expanded: false,
+  //     city: "Barcelona",
+  //   },
+  // ];
 
-      console.log(lat);
-      console.log(lng);
-      latlng = lat + "," + lng;
-      console.log(latlng);
+  // useEffect(async () => {
+  //   if (!navigator.geolocation) {
+  //     setStatus("Geolocation is not supported by the browser");
+  //   } else {
+  //     setStatus("Locating...");
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         console.log(position);
+  //         latitude = position.coords.latitude;
+  //         longitude = position.coords.longitude;
+  //         setLat(latitude);
+  //         setLng(longitude);
+  //       },
+  //       () => {
+  //         setStatus("Unable to retrieve your location");
+  //       }
+  //     );
+
+  //     console.log(lat);
+  //     console.log(lng);
+  //     latlng = lat + "," + lng;
+  //     console.log(latlng);
+  //   }
+  // }, []);
+
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    async function fetchFriends() {
+      let response = await fetch(URL_API_BAND);
+      response = await response.json();
+      console.log(response);
+      setFriends(response);
+      console.log(friends);
     }
-  });
+
+    fetchFriends();
+  }, []);
 
   let history = useHistory();
 
@@ -40,64 +116,22 @@ const SearchFriends = () => {
     return history.push(screen);
   };
 
-  const dataFriends = [
-    {
-      id: 1,
-      name: "Jorge",
-      instrument: "Bass Guitar",
-      expanded: false,
-      city: "Buenos Aires",
-    },
-    {
-      id: 2,
-      name: "Federick",
-      instrument: "Guitar",
-      expanded: false,
-      city: "Buenos",
-    },
-    {
-      id: 3,
-      name: "Isabel",
-      instrument: "Bass Guitar",
-      expanded: false,
-      city: "Argentina",
-    },
-    {
-      id: 4,
-      name: "Fernanda",
-      instrument: "Guitar",
-      expanded: false,
-      city: "New York",
-    },
-    {
-      id: 5,
-      name: "Sayago",
-      instrument: "Drums",
-      expanded: false,
-      city: "Boston",
-    },
-    {
-      id: 6,
-      name: "Bustamante",
-      instrument: "Violin",
-      expanded: false,
-      city: "Madrid",
-    },
-    {
-      id: 7,
-      name: "Maria",
-      instrument: "Piano",
-      expanded: false,
-      city: "Barcelona",
-    },
-  ];
+  function handleClick(email) {
+    console.log(email);
+    console.log("Clicking...");
+    console.log(friends);
 
-  const [friends, setFriends] = useState(dataFriends);
+    const friendsUpdate = friends.map((obj) =>
+      obj.data.email === email
+        ? {
+            user: obj.user,
+            data: { ...obj.data, expanded: !obj.data.expanded },
+          }
+        : obj
+    );
 
-  function handleClick(id) {
-    const state = friends[id - 1]["expanded"];
-    const filterFriend = { ...friends[id - 1], expanded: !state };
-    setFriends(friends.map((item) => (item.id === id ? filterFriend : item)));
+    setFriends(friendsUpdate);
+    console.log(friends);
   }
 
   const [lat, setLat] = useState(null);
@@ -151,17 +185,19 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
     return setFriends(friendsWithFilter);
   };
 
+  const addToFriends = (email) => {};
+
   return (
     <div className="background">
       <div
         style={{
           position: "absolute",
-          top: ".5rem",
-          left: ".5rem",
+          top: "2rem",
+          left: "2rem",
         }}
         onClick={() => redirectTo("/welcome")}
       >
-        <FiArrowLeft />
+        <FiArrowLeft style={{ height: "2rem", width: "2rem" }} />
       </div>
       <div
         style={{
@@ -185,13 +221,17 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
                 className="inputCity"
                 placeholder="Type a city"
                 value={filterCity}
-                onChange={(event) => setFilterCity(event.target.value)}
+                onChange={(event) => {
+                  console.log("clickingggg", event);
+
+                  setFilterCity(event.target.value);
+                }}
               />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <input
                 className="filterInstrument"
-                placeholder="Type instrument"
+                placeholder="Type instrument [Guitar]"
                 value={filterInstrument}
                 onChange={(event) => setFilterInstrument(event.target.value)}
               />
@@ -199,25 +239,68 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
           </div>
           <div className="dataFiltered">
             {friends
-              .filter(
-                (friend) =>
-                  (friend.city
-                    .toLowerCase()
-                    .includes(filterCity.toLowerCase()) ||
-                    filterCity === "") &&
-                  (friend.instrument.includes(filterInstrument) ||
-                    filterInstrument === "")
-              )
+              // .filter(
+              //   (friend) =>
+              //     (friend.data.city
+              //       .toLowerCase()
+              //       .includes(filterCity.toLowerCase()) ||
+              //       filterCity === "") &&
+              //     (friend["data"]["instruments"].includes(filterInstrument) ||
+              //       filterInstrument === "")
+              // )
               .map((friend) => {
-                return (
+                return friend.data.expanded ? (
                   <div
-                    className={friend.expanded ? "friendExpanded" : "friend"}
-                    onClick={() => handleClick(friend.id)}
-                    key={friend.id}
+                    className="friendExpanded"
+                    onClick={() => handleClick(friend.data.email)}
+                    key={friend.data.id}
+                  >
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <Avatar
+                        size={30}
+                        name={friend.data.firstname}
+                        variant="bauhaus"
+                        colors={[
+                          "#295264",
+                          "#FAD9A6",
+                          "#BD2F28",
+                          "#89373D",
+                          "#142433",
+                        ]}
+                      />
+                      <div className="friendInformation">
+                        {friend.data.name} | {friend.data.city} |{" "}
+                        {friend.data.instruments}
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className="chatButton"
+                        onClick={() => addToFriends(friend.data.email)}
+                      >
+                        Add to Friends
+                      </button>
+                      <button type="button" className="addToGroupButton">
+                        Chat
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="friend"
+                    onClick={() => handleClick(friend.data.email)}
+                    key={friend.data.id}
                   >
                     <Avatar
                       size={30}
-                      name={friend.name}
+                      name={friend.data.firstname}
                       variant="bauhaus"
                       colors={[
                         "#295264",
@@ -228,20 +311,17 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
                       ]}
                     />
                     <div className="friendInformation">
-                      {friend.name} | {friend.city} | {friend.instrument}
+                      <h6 style={{ margin: "0rem", fontSize: "0.7rem" }}>
+                        {friend.data.firstname}
+                      </h6>
+                      <h6 style={{ margin: "0rem" }}>{friend.data.city}</h6>
+                      {friend.data.instruments.map((inst) => (
+                        <div key={uuidv4()}>{inst.name}</div>
+                      ))}
                     </div>
                   </div>
                 );
               })}
-            {/* {friends.map((friend) => {
-              return (
-                <Friend
-                  name={friend.name}
-                  clicked={friend.expanded}
-                  selected={handleClick(friend.id)}
-                />
-              );
-            })} */}
           </div>
         </div>
       </div>

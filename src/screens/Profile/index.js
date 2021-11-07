@@ -11,26 +11,23 @@ import { v4 as uuidv4 } from "uuid";
 const Profile = () => {
   const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
 
-  const { authData } = useContext(GlobalContext);
+  const { authData, setAuthData } = useContext(GlobalContext);
 
-  // JSON.parse(authData).firstname
-  const [userName, setUserName] = useState("Isabel Sayago");
+  const [userName, setUserName] = useState(JSON.parse(authData).firstname);
 
-  // JSON.parse(authData).bio
-  const [bio, setBio] = useState("This is my story...");
+  const [bio, setBio] = useState(JSON.parse(authData).bio);
 
   const [enable, setEnable] = useState(true);
 
-  // JSON.parse(authData).password
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState(JSON.parse(authData).password);
 
-  const [confirmPassword, setConfirmPassword] = useState("password");
+  const [confirmPassword, setConfirmPassword] = useState(
+    JSON.parse(authData).password
+  );
 
-  // Usar el mail del objeto
-  const [email, setEmail] = useState("i@i.com");
+  const [email, setEmail] = useState(JSON.parse(authData).email);
 
-  // JSON.parse(authData).city
-  const [city, setCity] = useState("Buenos Aires");
+  const [city, setCity] = useState(JSON.parse(authData).city);
 
   // Pasarle los instrumentos del usuario JSON.parse(authData).instruments
 
@@ -41,7 +38,10 @@ const Profile = () => {
     { id: 4, name: "Guitar2", active: true },
     { id: 5, name: "Drums", active: true },
   ];
-  const [selectInstruments, setSelectInstruments] = useState(instruments);
+
+  const [selectInstruments, setSelectInstruments] = useState(
+    JSON.parse(authData).instruments
+  );
 
   let history = useHistory();
 
@@ -78,8 +78,11 @@ const Profile = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          firstname: userName,
           email: email,
           password: password,
+          bio: bio,
+          city: city,
         }),
       }).catch((err) => {
         if (err & err.message) {
@@ -90,14 +93,15 @@ const Profile = () => {
       console.log(response);
 
       if (response.ok) {
-        // const res = await response.json();
-        // saveLocalStorage(res);
-        // console.log(res);
-        // setAuthData(res);
-        // setAuthenticated(true);
+        const res = await response.json();
+        const user = { ...res };
+        console.log(res);
+        console.log(user);
+        setAuthData((prev) => prev);
+        console.log(authData);
         alert("Successfully updated!");
       } else {
-        alert("Email is being used.");
+        alert("Not updated");
       }
       // actions.resetForm();
 
@@ -126,7 +130,20 @@ const Profile = () => {
               backgroundColor: "black",
             }}
           />
-          <h6>{city}</h6>
+          <input
+            type="text"
+            disabled={enable}
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            style={{
+              fontFamily: "Roboto",
+              marginTop: "1rem",
+              backgroundColor: enable ? "lightgray" : "white",
+              fontSize: "1rem",
+              width: "10rem",
+              borderWidth: "0.05rem",
+            }}
+          />
         </div>
         <div className="emailInstruments">
           <div className="emailPassword">

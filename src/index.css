@@ -200,6 +200,10 @@ body {
   border: none;
   font-family: "Roboto", sans-serif;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .circleGreen {
@@ -291,7 +295,7 @@ body {
 }
 
 .searchContainer {
-  width: 15rem;
+  width: 25rem;
   height: 90vh;
   background-color: rgb(255, 255, 255);
   border-top-left-radius: 0.1rem;
@@ -302,8 +306,8 @@ body {
 }
 
 .filterSearch {
-  width: 15rem;
-  height: 3.5rem;
+  width: 19rem;
+  height: 7rem;
   background-color: rgb(255, 255, 255);
   border-top-left-radius: 0.1rem;
   border-top-right-radius: 0.1rem;
@@ -314,44 +318,47 @@ body {
 }
 
 .buttonMyLocation {
-  width: 6.5rem;
-  height: 1.5rem;
+  width: 12rem;
+  height: 3rem;
   margin: 0.2rem;
   background-color: #9c4848;
   border-radius: 0.3rem;
   font-family: "Roboto", sans-serif;
   border: transparent;
   color: white;
+  font-size: 1.5rem;
 }
 
 .inputCity {
-  width: 6.5rem;
-  height: 1.3rem;
+  width: 12rem;
+  height: 3rem;
   margin: 0.2rem;
   border: #b99e9e;
   right: 0.2rem;
+  font-size: 1.5rem;
 }
 
 .inputCity::placeholder {
-  font-size: 0.7rem;
+  font-size: 1.5rem;
   font-family: "Roboto", sans-serif;
   margin-left: 0.2rem;
 }
 
 .filterInstrument {
   justify-self: flex-start;
-  width: 13.15rem;
+  width: 24rem;
+  height: 3rem;
 }
 
 .filterInstrument::placeholder {
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-family: "Roboto", sans-serif;
-  margin-left: 0.2rem;
+  padding-left: 1rem;
 }
 
 .dataFiltered {
   background-color: rgb(255, 255, 255);
-  width: 13.5rem;
+  width: 25rem;
   height: inherit;
   display: flex;
   flex-direction: row;
@@ -360,8 +367,8 @@ body {
 }
 
 .friend {
-  height: 3rem;
-  width: 12.5rem;
+  height: 5rem;
+  width: 20rem;
   background-color: #a88989;
   margin: 0.4rem;
   font-family: "Roboto", sans-serif;
@@ -373,11 +380,11 @@ body {
 }
 
 .friendInformation {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   margin-bottom: 0.2rem;
   margin-top: 0.1rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   border-radius: 1rem;
 }

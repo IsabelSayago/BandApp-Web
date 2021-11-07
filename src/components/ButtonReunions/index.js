@@ -3,6 +3,7 @@ import "../../index.css";
 import React from "react";
 
 const ButtonReunions = ({ active, details, setDetails }) => {
+  const groupName = "Buenos Aires Gig";
   return (
     <>
       <button
@@ -16,7 +17,7 @@ const ButtonReunions = ({ active, details, setDetails }) => {
           <div className="circleRed"></div>
         )}
 
-        {active ? "Upcoming" : "No upcoming"}
+        {active ? "Upcoming: " : "No upcoming"}
       </button>
     </>
   );

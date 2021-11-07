@@ -33,8 +33,10 @@ const SignUp = () => {
 
   const addInstrument = () => {
     const name = window.prompt("Type instrument");
-    const instrumentCreated = { id: uuidv4(), name: name, active: true };
-    setInstruments((prev) => [...prev, instrumentCreated]);
+    if (name) {
+      const instrumentCreated = { id: uuidv4(), name: name, active: true };
+      setInstruments((prev) => [...prev, instrumentCreated]);
+    }
   };
 
   const deleteInstrument = (id) => {
@@ -87,7 +89,7 @@ const SignUp = () => {
                 },
                 body: JSON.stringify({
                   firstname: values.name,
-                  surname: values.name,
+                  city: values.city,
                   email: values.email,
                   password: values.password,
                   surname: values.name,
@@ -109,8 +111,6 @@ const SignUp = () => {
                 console.log(res);
                 setAuthData(res);
                 setAuthenticated(true);
-                /* setAuthData(res)
-                setAuthenticated(true); */
                 alert("Welcome to BandApp!");
               } else {
                 alert("Email is being used.");

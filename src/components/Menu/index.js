@@ -16,6 +16,7 @@ const Menu = ({ open, recovery, welcome }) => {
           <Link to="/myprofile">My Profile </Link>
           <Link to="/friends">Friends</Link>
           <Link to="/searchfriends">Search Friends</Link>
+          <Link to="/groups">Groups</Link>
           {/* <Link to="/signup"> Another SignUp </Link>
           <a href="/signup">SignUp</a>
           <a href="/myprofile">Another Profile</a> */}

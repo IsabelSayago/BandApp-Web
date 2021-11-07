@@ -1,76 +1,81 @@
 import "./index.css";
 
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Avatar from "boring-avatars";
+import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
 
 const Friends = () => {
+  const { authData, setAuthData } = useContext(GlobalContext);
+
   let history = useHistory();
 
   const redirectTo = (screen) => {
     return history.push(screen);
   };
 
-  const dataFriends = [
-    {
-      id: 1,
-      email: "f@f.com",
-      name: "Jorge Sayago",
-      instruments: ["Piano", "Drums", "Guitar"],
-      expanded: false,
-      city: "Buenos Aires",
-    },
-    {
-      id: 2,
-      email: "a@a.com",
-      name: "Federick Bustamante",
-      instruments: ["Flauta", "Piano", "Guitar"],
-      expanded: false,
-      city: "Buenos",
-    },
-    {
-      id: 3,
-      email: "i@i.com",
-      name: "Isabel Sayago",
-      instruments: ["Violin", "Guitar"],
-      expanded: false,
-      city: "Argentina",
-    },
-    {
-      id: 4,
-      email: "d@d.com",
-      name: "Fernanda Bustamante",
-      instruments: ["Piano", "Guitar"],
-      expanded: false,
-      city: "New York",
-    },
-    {
-      id: 5,
-      email: "m@m.com",
-      name: "Sayago Bustamante",
-      instruments: ["Violin", "Piano", "Bass"],
-      expanded: false,
-      city: "Boston",
-    },
-    {
-      id: 6,
-      email: "z@z.com",
-      name: "Bustamante Isabel",
-      instruments: ["Violin", "Piano", "Guitar"],
-      expanded: false,
-      city: "Madrid",
-    },
-    {
-      id: 7,
-      email: "y@y.com",
-      name: "Maria Bustamante",
-      instruments: ["Bass", "Piano", "Guitar"],
-      expanded: false,
-      city: "Barcelona",
-    },
-  ];
+  const dataFriends = [];
+
+  // const dataFriends = [
+  //   {
+  //     id: 1,
+  //     email: "f@f.com",
+  //     name: "Jorge Sayago",
+  //     instruments: ["Piano", "Drums", "Guitar"],
+  //     expanded: false,
+  //     city: "Buenos Aires",
+  //   },
+  //   {
+  //     id: 2,
+  //     email: "a@a.com",
+  //     name: "Federick Bustamante",
+  //     instruments: ["Flauta", "Piano", "Guitar"],
+  //     expanded: false,
+  //     city: "Buenos",
+  //   },
+  //   {
+  //     id: 3,
+  //     email: "i@i.com",
+  //     name: "Isabel Sayago",
+  //     instruments: ["Violin", "Guitar"],
+  //     expanded: false,
+  //     city: "Argentina",
+  //   },
+  //   {
+  //     id: 4,
+  //     email: "d@d.com",
+  //     name: "Fernanda Bustamante",
+  //     instruments: ["Piano", "Guitar"],
+  //     expanded: false,
+  //     city: "New York",
+  //   },
+  //   {
+  //     id: 5,
+  //     email: "m@m.com",
+  //     name: "Sayago Bustamante",
+  //     instruments: ["Violin", "Piano", "Bass"],
+  //     expanded: false,
+  //     city: "Boston",
+  //   },
+  //   {
+  //     id: 6,
+  //     email: "z@z.com",
+  //     name: "Bustamante Isabel",
+  //     instruments: ["Violin", "Piano", "Guitar"],
+  //     expanded: false,
+  //     city: "Madrid",
+  //   },
+  //   {
+  //     id: 7,
+  //     email: "y@y.com",
+  //     name: "Maria Bustamante",
+  //     instruments: ["Bass", "Piano", "Guitar"],
+  //     expanded: false,
+  //     city: "Barcelona",
+  //   },
+  // ];
 
   const [friends, setFriends] = useState(dataFriends);
 
@@ -117,14 +122,56 @@ const Friends = () => {
             Friends
           </h2>
           <div className="dataFiltered">
-            {friends.map((friend) => {
-              return friend.expanded ? (
-                <div
-                  className="friendExpanded"
-                  onClick={() => handleClick(friend.id)}
-                  key={friend.id}
-                >
-                  <div style={{ display: "flex", flexDirection: "row" }}>
+            {friends.length > 0 ? (
+              friends.map((friend) => {
+                return friend.expanded ? (
+                  <div
+                    className="friendExpanded"
+                    onClick={() => handleClick(friend.id)}
+                    key={friend.id}
+                  >
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <Avatar
+                        size={30}
+                        name={friend.name}
+                        variant="bauhaus"
+                        colors={[
+                          "#295264",
+                          "#FAD9A6",
+                          "#BD2F28",
+                          "#89373D",
+                          "#142433",
+                        ]}
+                      />
+                      <div className="friendInformation">
+                        {friend.name} | {friend.city} | {friend.instrument}
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        className="chatButton"
+                        onClick={() => redirectTo("/chat")}
+                      >
+                        Chat
+                      </button>
+                      <button type="button" className="addToGroupButton">
+                        Add to Group
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="friend"
+                    onClick={() => handleClick(friend.id)}
+                    key={friend.id}
+                  >
                     <Avatar
                       size={30}
                       name={friend.name}
@@ -141,58 +188,11 @@ const Friends = () => {
                       {friend.name} | {friend.city} | {friend.instrument}
                     </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <button
-                      type="button"
-                      className="chatButton"
-                      onClick={() => redirectTo("/chat")}
-                    >
-                      Chat
-                    </button>
-                    <button type="button" className="addToGroupButton">
-                      Add to Group
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className="friend"
-                  onClick={() => handleClick(friend.id)}
-                  key={friend.id}
-                >
-                  <Avatar
-                    size={30}
-                    name={friend.name}
-                    variant="bauhaus"
-                    colors={[
-                      "#295264",
-                      "#FAD9A6",
-                      "#BD2F28",
-                      "#89373D",
-                      "#142433",
-                    ]}
-                  />
-                  <div className="friendInformation">
-                    {friend.name} | {friend.city} | {friend.instrument}
-                  </div>
-                </div>
-              );
-            })}
-            {/* {friends.map((friend) => {
-              return (
-                <Friend
-                  name={friend.name}
-                  clicked={friend.expanded}
-                  selected={handleClick(friend.id)}
-                />
-              );
-            })} */}
+                );
+              })
+            ) : (
+              <h6>- No friends added -</h6>
+            )}
           </div>
         </div>
       </div>

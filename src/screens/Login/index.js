@@ -3,11 +3,11 @@ import "../../index.css";
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import GlobalContext, { authData } from "../../contexts/global";
 import React, { useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 
 import Burger from "../../components/Burger";
-import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
 import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
@@ -75,6 +75,7 @@ function Login() {
                 console.log(res);
                 localStorage.setItem("userData", JSON.stringify(res));
                 setAuthData(res);
+                console.log(authData);
                 setAuthenticated(true);
                 redirectTo("/welcome");
               } else {

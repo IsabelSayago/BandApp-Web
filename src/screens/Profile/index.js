@@ -70,8 +70,9 @@ const Profile = () => {
   };
 
   const saveChanges = async () => {
+    let response;
     if (password === confirmPassword && window.confirm("Sure?")) {
-      const response = await fetch(URL_API_BAND, {
+      response = await fetch(URL_API_BAND, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -94,10 +95,11 @@ const Profile = () => {
 
       if (response.ok) {
         const res = await response.json();
-        const user = { ...res };
+
         console.log(res);
-        console.log(user);
-        setAuthData((prev) => prev);
+        console.log(authData);
+        setAuthData(res);
+        localStorage.setItem("userData", res);
         console.log(authData);
         alert("Successfully updated!");
       } else {

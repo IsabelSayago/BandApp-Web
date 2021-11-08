@@ -130,7 +130,10 @@ const SearchFriends = () => {
         : obj
     );
 
-    setFriends(friendsUpdate);
+    setFriends((prev) => [
+      ...prev,
+      { user: { ...prev[0].user }, data: { ...prev[0].data, expanded: true } },
+    ]);
     console.log(friends);
   }
 

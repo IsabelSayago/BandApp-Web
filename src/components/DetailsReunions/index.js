@@ -1,10 +1,6 @@
-import React, { useContext } from "react";
-
-import GlobalContext from "../../contexts/global";
+import React from "react";
 
 const DetailsReunions = ({ details, setDetails }) => {
-  const { authData } = useContext(GlobalContext);
-
   const members = ["Joss Stone", "Paolo Nutini", "Angele"];
 
   return (

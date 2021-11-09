@@ -3,7 +3,7 @@ import "../../index.css";
 import React from "react";
 
 const ButtonReunions = ({ active, details, setDetails }) => {
-  const groupName = "Buenos Aires Gig";
+  //const groupName = "Buenos Aires Gig";
   return (
     <>
       <button

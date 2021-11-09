@@ -7,7 +7,6 @@ import Burger from "../../components/Burger";
 import { FiPlusCircle } from "react-icons/fi";
 import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
-import { ProvideAuth } from "../../components/ProvideAuth";
 import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
 import { useHistory } from "react-router";

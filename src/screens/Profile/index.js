@@ -1,10 +1,9 @@
 import "./index.css";
 
 import { FiArrowLeft, FiEdit3, FiPlusCircle } from "react-icons/fi";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import GlobalContext from "../../contexts/global";
-import { object } from "yup";
 import { useHistory } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 
@@ -31,13 +30,13 @@ const Profile = () => {
 
   // Pasarle los instrumentos del usuario JSON.parse(authData).instruments
 
-  const instruments = [
-    { id: 1, name: "Guitar", active: false },
-    { id: 2, name: "Bass Guitar", active: true },
-    { id: 3, name: "Drums", active: true },
-    { id: 4, name: "Guitar2", active: true },
-    { id: 5, name: "Drums", active: true },
-  ];
+  // const instruments = [
+  //   { id: 1, name: "Guitar", active: false },
+  //   { id: 2, name: "Bass Guitar", active: true },
+  //   { id: 3, name: "Drums", active: true },
+  //   { id: 4, name: "Guitar2", active: true },
+  //   { id: 5, name: "Drums", active: true },
+  // ];
 
   const [selectInstruments, setSelectInstruments] = useState(
     JSON.parse(authData).instruments
@@ -84,6 +83,7 @@ const Profile = () => {
           password: password,
           bio: bio,
           city: city,
+          instruments: selectInstruments,
         }),
       }).catch((err) => {
         if (err & err.message) {
@@ -98,9 +98,9 @@ const Profile = () => {
 
         console.log(res);
         console.log(authData);
-        setAuthData(res);
-        localStorage.setItem("userData", res);
-        console.log(authData);
+        //setAuthData(res);
+        localStorage.setItem("userData", JSON.stringify(res));
+        console.log(localStorage.getItem("userData"));
         alert("Successfully updated!");
       } else {
         alert("Not updated");

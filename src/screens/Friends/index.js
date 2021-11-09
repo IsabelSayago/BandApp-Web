@@ -1,14 +1,15 @@
 import "./index.css";
 
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import Avatar from "boring-avatars";
-import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
 
+//import GlobalContext from "../../contexts/global";
+
 const Friends = () => {
-  const { authData, setAuthData } = useContext(GlobalContext);
+  //const { authData, setAuthData } = useContext(GlobalContext);
 
   let history = useHistory();
 

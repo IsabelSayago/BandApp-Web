@@ -2,9 +2,12 @@ import { FiArrowLeft, FiSearch } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 
 import Avatar from "boring-avatars";
-import Friends from "../Friends";
 import { useHistory } from "react-router";
 import { v4 as uuidv4 } from "uuid";
+
+//import Friends from "../Friends";
+
+
 
 const SearchFriends = () => {
   const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
@@ -71,30 +74,30 @@ const SearchFriends = () => {
   //   },
   // ];
 
-  // useEffect(async () => {
-  //   if (!navigator.geolocation) {
-  //     setStatus("Geolocation is not supported by the browser");
-  //   } else {
-  //     setStatus("Locating...");
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         console.log(position);
-  //         latitude = position.coords.latitude;
-  //         longitude = position.coords.longitude;
-  //         setLat(latitude);
-  //         setLng(longitude);
-  //       },
-  //       () => {
-  //         setStatus("Unable to retrieve your location");
-  //       }
-  //     );
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setStatus("Geolocation is not supported by the browser");
+    } else {
+      setStatus("Locating...");
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position);
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+          setLat(latitude);
+          setLng(longitude);
+        },
+        () => {
+          setStatus("Unable to retrieve your location");
+        }
+      );
 
-  //     console.log(lat);
-  //     console.log(lng);
-  //     latlng = lat + "," + lng;
-  //     console.log(latlng);
-  //   }
-  // }, []);
+      console.log(lat);
+      console.log(lng);
+      latlng = lat + "," + lng;
+      console.log(latlng);
+    }
+  }, []);
 
   const [friends, setFriends] = useState([]);
 

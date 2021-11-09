@@ -5,12 +5,12 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import GlobalContext, { authData } from "../../contexts/global";
 import React, { useContext, useState } from "react";
-import { useHistory, useLocation } from "react-router";
 
 import Burger from "../../components/Burger";
 import Menu from "../../components/Menu";
 import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
+import { useHistory } from "react-router";
 
 // import { useAuth } from "../../components/ProvideAuth";
 
@@ -18,11 +18,11 @@ function Login() {
   const [open, setOpen] = useState(false);
   const { setAuthData, setAuthenticated } = useContext(GlobalContext);
   let history = useHistory();
-  let location = useLocation();
+  //let location = useLocation();
 
   const URL_API_BAND = "https://band-app-back.herokuapp.com/users/login";
 
-  let { from } = location.state || { from: { pathname: "/" } };
+  // let { from } = location.state || { from: { pathname: "/" } };
 
   const redirectTo = (screen) => {
     history.push(screen);

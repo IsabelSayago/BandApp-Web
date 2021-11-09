@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Menu = ({ open, recovery, welcome }) => {
-  const { authData, setAuthData, setAuthenticated, applyLogout } =
-    useContext(GlobalContext);
+  const { applyLogout } = useContext(GlobalContext);
 
   return (
     <div>

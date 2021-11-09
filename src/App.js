@@ -1,8 +1,8 @@
 import "./index.css";
 
 import { PrivateRoute, PublicRoute } from "./components/ProvideAuth";
-import React, { useContext, useEffect, useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Switch, useHistory } from "react-router-dom";
 
 import Chat from "./screens/Chat";
 import Friends from "./screens/Friends";

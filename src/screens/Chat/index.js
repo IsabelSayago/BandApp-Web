@@ -1,12 +1,12 @@
 import "./index.css";
 
-import { FiArrowLeft, FiStar } from "react-icons/fi";
-import React, { useState } from "react";
-
 import Avatar from "boring-avatars";
-import Burger from "../../components/Burger";
 import { FcRating } from "react-icons/fc";
+import { FiArrowLeft } from "react-icons/fi";
+import React from "react";
 import { useHistory } from "react-router";
+
+//import Burger from "../../components/Burger";
 
 const Chat = () => {
   let history = useHistory();
@@ -78,7 +78,6 @@ const Instrument = (props) => {
   return (
     <div
       style={{
-        margin: "0rem",
         backgroundColor: "#a15b5b",
         color: "white",
         borderRadius: "0.4rem",

@@ -130,10 +130,7 @@ const SearchFriends = () => {
         : obj
     );
 
-    setFriends((prev) => [
-      ...prev,
-      { user: { ...prev[0].user }, data: { ...prev[0].data, expanded: true } },
-    ]);
+    setFriends(friendsUpdate);
     console.log(friends);
   }
 
@@ -272,8 +269,14 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
                         ]}
                       />
                       <div className="friendInformation">
-                        {friend.data.name} | {friend.data.city} |{" "}
-                        {friend.data.instruments}
+                        {friend.data.firstname} | {friend.data.city} |{" "}
+                        {friend.data.instruments ? (
+                          friend.data.instruments.map((inst) => (
+                            <div key={uuidv4()}>{inst.name}</div>
+                          ))
+                        ) : (
+                          <h6>No instruments added</h6>
+                        )}
                       </div>
                     </div>
                     <div
@@ -318,9 +321,13 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
                         {friend.data.firstname}
                       </h6>
                       <h6 style={{ margin: "0rem" }}>{friend.data.city}</h6>
-                      {friend.data.instruments.map((inst) => (
-                        <div key={uuidv4()}>{inst.name}</div>
-                      ))}
+                      {friend.data.instruments ? (
+                        friend.data.instruments.map((inst) => (
+                          <div key={uuidv4()}>{inst.name}</div>
+                        ))
+                      ) : (
+                        <h6>No instruments added</h6>
+                      )}
                     </div>
                   </div>
                 );

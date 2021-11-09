@@ -1,12 +1,6 @@
 import "./index.css";
 
-import {
-  PrivateRoute,
-  ProvideAuth,
-  PublicRoute,
-  useAuth,
-  useProvideAuth,
-} from "./components/ProvideAuth";
+import { PrivateRoute, PublicRoute } from "./components/ProvideAuth";
 import React, { useContext, useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 

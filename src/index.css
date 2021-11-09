@@ -368,7 +368,7 @@ body {
 
 .friend {
   height: 5rem;
-  width: 20rem;
+  width: 22.5rem;
   background-color: #a88989;
   margin: 0.4rem;
   font-family: "Roboto", sans-serif;
@@ -391,7 +391,7 @@ body {
 
 .friendExpanded {
   height: 5rem;
-  width: 12.5rem;
+  width: 22.5rem;
   background-color: #a88989;
   margin: 0.4rem;
   font-family: "Roboto", sans-serif;

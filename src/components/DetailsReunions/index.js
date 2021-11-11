@@ -1,21 +1,22 @@
 import React from "react";
 
-const DetailsReunions = ({ details, setDetails }) => {
+const DetailsReunions = ({ active, details, setDetails }) => {
   const members = ["Joss Stone", "Paolo Nutini", "Angele"];
 
   return (
     <div>
-      {details ? (
+      {details && active ? (
         <div className="detailsReunion">
           <h6
             style={{
               fontSize: "1rem",
-              fontFamily: "Roboto",
+              fontFamily: "Roboto, sans-serif",
+              fontWeight: "200",
               marginTop: "0.5rem",
               marginBottom: "1.5rem",
             }}
           >
-            Buenos Aires Gig
+            Buenos Aires
           </h6>
           {members.map((member) => {
             return (

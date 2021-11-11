@@ -10,7 +10,7 @@ const Welcome = () => {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
 
-  const active = true;
+  const active = false;
 
   return (
     <div className="background">
@@ -30,7 +30,11 @@ const Welcome = () => {
           details={details}
           setDetails={setDetails}
         />
-        <DetailsReunions details={details} setDetails={setDetails} />
+        <DetailsReunions
+          active={active}
+          details={details}
+          setDetails={setDetails}
+        />
       </div>
     </div>
   );

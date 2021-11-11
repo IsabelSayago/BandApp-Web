@@ -37,7 +37,7 @@ function App() {
     console.log(user);
     if (user) {
       setAuthenticated(true);
-      setAuthData(user);
+      setAuthData(JSON.parse(user));
     }
   };
 

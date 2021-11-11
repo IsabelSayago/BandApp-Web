@@ -72,11 +72,12 @@ function Login() {
               console.log(response);
               if (response.ok) {
                 const res = await response.json();
+
+                setAuthenticated(true);
                 console.log(res);
                 localStorage.setItem("userData", JSON.stringify(res));
                 setAuthData(res);
                 console.log(authData);
-                setAuthenticated(true);
                 redirectTo("/welcome");
               } else {
                 alert("Invalid e-mail or password");

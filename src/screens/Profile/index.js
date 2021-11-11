@@ -1,7 +1,7 @@
 import "./index.css";
 
 import { FiArrowLeft, FiEdit3, FiPlusCircle } from "react-icons/fi";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
@@ -12,34 +12,22 @@ const Profile = () => {
 
   const { authData, setAuthData } = useContext(GlobalContext);
 
-  const [userName, setUserName] = useState(JSON.parse(authData).firstname);
+  const [userName, setUserName] = useState(authData.firstname);
 
-  const [bio, setBio] = useState(JSON.parse(authData).bio);
+  const [bio, setBio] = useState(authData.bio);
 
   const [enable, setEnable] = useState(true);
 
-  const [password, setPassword] = useState(JSON.parse(authData).password);
+  const [password, setPassword] = useState(authData.password);
 
-  const [confirmPassword, setConfirmPassword] = useState(
-    JSON.parse(authData).password
-  );
+  const [confirmPassword, setConfirmPassword] = useState(authData.password);
 
-  const [email, setEmail] = useState(JSON.parse(authData).email);
+  const [email, setEmail] = useState(authData.email);
 
-  const [city, setCity] = useState(JSON.parse(authData).city);
-
-  // Pasarle los instrumentos del usuario JSON.parse(authData).instruments
-
-  // const instruments = [
-  //   { id: 1, name: "Guitar", active: false },
-  //   { id: 2, name: "Bass Guitar", active: true },
-  //   { id: 3, name: "Drums", active: true },
-  //   { id: 4, name: "Guitar2", active: true },
-  //   { id: 5, name: "Drums", active: true },
-  // ];
+  const [city, setCity] = useState(authData.city);
 
   const [selectInstruments, setSelectInstruments] = useState(
-    JSON.parse(authData).instruments
+    authData.instruments
   );
 
   let history = useHistory();
@@ -98,7 +86,7 @@ const Profile = () => {
 
         console.log(res);
         console.log(authData);
-        //setAuthData(res);
+        setAuthData({ ...res });
         localStorage.setItem("userData", JSON.stringify(res));
         console.log(localStorage.getItem("userData"));
         alert("Successfully updated!");

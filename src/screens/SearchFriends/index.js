@@ -1,16 +1,22 @@
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Avatar from "boring-avatars";
+import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 
 //import Friends from "../Friends";
 
-
-
 const SearchFriends = () => {
-  const URL_API_BAND = "https://band-app-back.herokuapp.com/users";
+  const { authData, setAuthData } = useContext(GlobalContext);
+
+  const [userEmail, setUserEmail] = useState(authData.email);
+
+  const URL_API = "https://band-app-back.herokuapp.com/users";
+  const URL_API_UPDATE_FRIENDS =
+    "https://band-app-back.herokuapp.com/users/friend";
+
   let latlng;
   let latitude;
   let longitude;
@@ -103,7 +109,7 @@ const SearchFriends = () => {
 
   useEffect(() => {
     async function fetchFriends() {
-      let response = await fetch(URL_API_BAND);
+      let response = await fetch(URL_API);
       response = await response.json();
       console.log(response);
       setFriends(response);
@@ -188,7 +194,52 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
     return setFriends(friendsWithFilter);
   };
 
-  const addToFriends = (email) => {};
+  const addToFriends = async (friendData) => {
+    let response;
+    response = await fetch(URL_API_UPDATE_FRIENDS, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        friend: {
+          email: friendData.email,
+          expanded: false,
+          firstname: friendData.firstname,
+          city: friendData.city,
+          instruments: friendData.instruments,
+        },
+      }),
+    }).catch((err) => {
+      if (err & err.message) {
+        console.log(err.message);
+      }
+    });
+
+    if (response.ok) {
+      response = await response.json();
+      console.log(response);
+      let responseUpdatedUser = await fetch(
+        `https://band-app-back.herokuapp.com/users/${userEmail}`
+      );
+      responseUpdatedUser = await responseUpdatedUser.json();
+      console.log(authData);
+      const authDataUpdated = {
+        ...authData,
+        friends: responseUpdatedUser.friends,
+      };
+
+      localStorage.setItem("userData", JSON.stringify(authDataUpdated));
+      setAuthData((prev) => {
+        return { ...prev, friends: responseUpdatedUser.friends };
+      });
+
+      console.log(authData);
+      alert("Friend added succesfully");
+    }
+  };
 
   return (
     <div className="background">
@@ -242,15 +293,19 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
           </div>
           <div className="dataFiltered">
             {friends
-              // .filter(
-              //   (friend) =>
-              //     (friend.data.city
-              //       .toLowerCase()
-              //       .includes(filterCity.toLowerCase()) ||
-              //       filterCity === "") &&
-              //     (friend["data"]["instruments"].includes(filterInstrument) ||
-              //       filterInstrument === "")
-              // )
+              .filter((friend) => {
+                return (
+                  (friend.data.city
+                    .toLowerCase()
+                    .includes(filterCity.toLowerCase()) ||
+                    filterCity === "") &&
+                  friend.data.instruments.some(
+                    (inst) =>
+                      inst.name.includes(filterInstrument) ||
+                      filterInstrument === ""
+                  )
+                );
+              })
               .map((friend) => {
                 return friend.data.expanded ? (
                   <div
@@ -292,11 +347,15 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
                       <button
                         type="button"
                         className="chatButton"
-                        onClick={() => addToFriends(friend.data.email)}
+                        onClick={() => addToFriends(friend.data)}
                       >
                         Add to Friends
                       </button>
-                      <button type="button" className="addToGroupButton">
+                      <button
+                        onClick={() => redirectTo("/chat")}
+                        type="button"
+                        className="addToGroupButton"
+                      >
                         Chat
                       </button>
                     </div>

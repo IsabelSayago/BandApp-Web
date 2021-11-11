@@ -106,11 +106,13 @@ const SignUp = () => {
 
               if (response.ok) {
                 const res = await response.json();
-                saveLocalStorage(res);
-                console.log(res);
-                setAuthData(res);
                 setAuthenticated(true);
+                console.log(res);
+                localStorage.setItem("userData", JSON.stringify(res));
+                setAuthData(res);
+
                 alert("Welcome to BandApp!");
+                redirectTo("/welcome");
               } else {
                 alert("Email is being used.");
               }

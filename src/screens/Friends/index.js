@@ -1,15 +1,15 @@
 import "./index.css";
 
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Avatar from "boring-avatars";
+import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
-
-//import GlobalContext from "../../contexts/global";
+import { v4 as uuidv4 } from "uuid";
 
 const Friends = () => {
-  //const { authData, setAuthData } = useContext(GlobalContext);
+  const { authData, setAuthData } = useContext(GlobalContext);
 
   let history = useHistory();
 
@@ -17,73 +17,76 @@ const Friends = () => {
     return history.push(screen);
   };
 
-  const dataFriends = [];
+  const [friends, setFriends] = useState(authData.friends);
+  const [friendsList, setFriendsList] = useState([]);
 
-  // const dataFriends = [
-  //   {
-  //     id: 1,
-  //     email: "f@f.com",
-  //     name: "Jorge Sayago",
-  //     instruments: ["Piano", "Drums", "Guitar"],
-  //     expanded: false,
-  //     city: "Buenos Aires",
-  //   },
-  //   {
-  //     id: 2,
-  //     email: "a@a.com",
-  //     name: "Federick Bustamante",
-  //     instruments: ["Flauta", "Piano", "Guitar"],
-  //     expanded: false,
-  //     city: "Buenos",
-  //   },
-  //   {
-  //     id: 3,
-  //     email: "i@i.com",
-  //     name: "Isabel Sayago",
-  //     instruments: ["Violin", "Guitar"],
-  //     expanded: false,
-  //     city: "Argentina",
-  //   },
-  //   {
-  //     id: 4,
-  //     email: "d@d.com",
-  //     name: "Fernanda Bustamante",
-  //     instruments: ["Piano", "Guitar"],
-  //     expanded: false,
-  //     city: "New York",
-  //   },
-  //   {
-  //     id: 5,
-  //     email: "m@m.com",
-  //     name: "Sayago Bustamante",
-  //     instruments: ["Violin", "Piano", "Bass"],
-  //     expanded: false,
-  //     city: "Boston",
-  //   },
-  //   {
-  //     id: 6,
-  //     email: "z@z.com",
-  //     name: "Bustamante Isabel",
-  //     instruments: ["Violin", "Piano", "Guitar"],
-  //     expanded: false,
-  //     city: "Madrid",
-  //   },
-  //   {
-  //     id: 7,
-  //     email: "y@y.com",
-  //     name: "Maria Bustamante",
-  //     instruments: ["Bass", "Piano", "Guitar"],
-  //     expanded: false,
-  //     city: "Barcelona",
-  //   },
-  // ];
+  useEffect(() => {
+    setFriends(authData.friends);
+    console.log(friends);
+    // setFriends(authData.friends);
+    console.log("friends empty", friends);
+    console.log("user logged in", authData.friends);
 
-  const [friends, setFriends] = useState(dataFriends);
+    const fetchInfo = async (email) => {
+      let response = await fetch(
+        `https://band-app-back.herokuapp.com/users/${email}`
+      );
+      response = await response.json();
+      return response;
+    };
 
-  function handleClick(id) {
-    const state = friends[id - 1]["expanded"];
-    const filterFriend = { ...friends[id - 1], expanded: !state };
-    setFriends(friends.map((item) => (item.id === id ? filterFriend : item)));
+    const fetchData = async (data) => {
+      data.map((element) => {
+        let responseData = fetchInfo(element.email);
+        // .then((data) =>
+        console.log(data);
+
+        console.log(responseData);
+        //setFriendsList((prev) => [...prev, responseData]);
+      });
+    };
+
+    // const fetchData = (data) => {
+    //   data.map((element) => {
+    //     fetchInfo(element.email).then((response) =>
+    //       setFriends((prev) => [...prev, response])
+    //     );
+    //   });
+    // };
+
+    // authData.friends.map((element) => {
+    //   fetchInfo(element.email).then((response) =>
+    //     setFriends((prev) => [...prev, response])
+    //   );
+    // });
+    console.log(authData.friends);
+    fetchData(authData.friends);
+
+    //console.log(updatingFriends);
+    console.log(friends);
+    console.log(friendsList);
+
+    //setFriends(authData.friends);
+    setAuthData({ ...authData, friends: friendsList });
+    console.log(authData);
+  }, []);
+
+  function handleClick(email) {
+    console.log(email);
+    console.log("Clicking...");
+    console.log(friends);
+
+    const friendsUpdate = friends.map((obj) =>
+      obj.email === email
+        ? {
+            ...obj,
+            expanded: !obj.expanded,
+          }
+        : obj
+    );
+
+    setFriends(friendsUpdate);
+    console.log(friends);
   }
 
   return (
@@ -91,22 +94,22 @@ const Friends = () => {
       <div
         style={{
           position: "absolute",
-          top: ".5rem",
-          left: ".5rem",
+          top: "1.5rem",
+          left: "1.5rem",
         }}
         onClick={() => redirectTo("/welcome")}
       >
-        <FiArrowLeft />
+        <FiArrowLeft style={{ width: "2rem", height: "2rem" }} />
       </div>
       <div
         style={{
           position: "absolute",
-          top: ".5rem",
-          right: ".5rem",
+          top: "1.5rem",
+          right: "1.5rem",
         }}
         onClick={() => alert("Searching...")}
       >
-        <FiSearch />
+        <FiSearch style={{ width: "2rem", height: "2rem" }} />
       </div>
       <div className="friendsBackground">
         <div className="searchContainer">
@@ -128,13 +131,13 @@ const Friends = () => {
                 return friend.expanded ? (
                   <div
                     className="friendExpanded"
-                    onClick={() => handleClick(friend.id)}
-                    key={friend.id}
+                    onClick={() => handleClick(friend.email)}
+                    key={uuidv4()}
                   >
                     <div style={{ display: "flex", flexDirection: "row" }}>
                       <Avatar
                         size={30}
-                        name={friend.name}
+                        name={friend.firstname}
                         variant="bauhaus"
                         colors={[
                           "#295264",
@@ -145,7 +148,15 @@ const Friends = () => {
                         ]}
                       />
                       <div className="friendInformation">
-                        {friend.name} | {friend.city} | {friend.instrument}
+                        {friend.firstname} | {friend.email} |{" "}
+                        {friend.instruments &&
+                          friend.instruments.map((instrument) => {
+                            return (
+                              <h6 style={{ margin: "0.2rem" }} key={uuidv4()}>
+                                {instrument.name}
+                              </h6>
+                            );
+                          })}
                       </div>
                     </div>
                     <div
@@ -170,12 +181,12 @@ const Friends = () => {
                 ) : (
                   <div
                     className="friend"
-                    onClick={() => handleClick(friend.id)}
-                    key={friend.id}
+                    onClick={() => handleClick(friend.email)}
+                    key={uuidv4()}
                   >
                     <Avatar
                       size={30}
-                      name={friend.name}
+                      name={friend.firstname}
                       variant="bauhaus"
                       colors={[
                         "#295264",
@@ -186,13 +197,30 @@ const Friends = () => {
                       ]}
                     />
                     <div className="friendInformation">
-                      {friend.name} | {friend.city} | {friend.instrument}
+                      {friend.firstname} | {friend.email} |
+                      {friend.instruments &&
+                        friend.instruments.map((instrument) => {
+                          return (
+                            <h6 style={{ margin: "0.2rem" }} key={uuidv4()}>
+                              {instrument.name}
+                            </h6>
+                          );
+                        })}
                     </div>
                   </div>
                 );
               })
             ) : (
-              <h6>- No friends added -</h6>
+              <h6
+                style={{
+                  fontFamily: "Roboto",
+                  alignSelf: "center",
+                  fontSize: "1rem",
+                  justifyContent: "center",
+                }}
+              >
+                - No friends added -
+              </h6>
             )}
           </div>
         </div>

@@ -18,7 +18,7 @@ const Menu = ({ open, recovery, welcome }) => {
           <Link to="/groups">Groups</Link>
           {/* <Link to="/signup"> Another SignUp </Link>
           <a href="/signup">SignUp</a>
-          <a href="/myprofile">Another Profile</a> */}
+          <a href="/myprofile">Another Profile</a>*/}
 
           {/* <ul>
             <li onClick={() => navigate("/myprofile")}>My Profile</li>
@@ -45,7 +45,7 @@ const Menu = ({ open, recovery, welcome }) => {
         <StyledMenu open={open} recovery={recovery}>
           <a href="/signup">SignUp</a>
           <a href="/login">Login</a>
-          <a href="/myprofile">About</a>
+          {/* <a href="/myprofile">About</a> */}
         </StyledMenu>
       )}
     </div>

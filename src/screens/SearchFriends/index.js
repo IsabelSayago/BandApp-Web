@@ -21,65 +21,6 @@ const SearchFriends = () => {
   let latitude;
   let longitude;
 
-  // const dataFriends = [
-  //   {
-  //     id: 1,
-  //     email: "f@f.com",
-  //     name: "Jorge Sayago",
-  //     instruments: ["Piano", "Drums"],
-  //     expanded: false,
-  //     city: "Buenos Aires",
-  //   },
-  //   {
-  //     id: 2,
-  //     email: "a@a.com",
-  //     name: "Federick Bustamante",
-  //     instruments: ["Flauta", "Piano"],
-  //     expanded: false,
-  //     city: "Buenos",
-  //   },
-  //   {
-  //     id: 3,
-  //     email: "i@i.com",
-  //     name: "Isabel Sayago",
-  //     instruments: ["Violin", "Guitar"],
-  //     expanded: false,
-  //     city: "Argentina",
-  //   },
-  //   {
-  //     id: 4,
-  //     email: "d@d.com",
-  //     name: "Fernanda Bustamante",
-  //     instruments: ["Piano"],
-  //     expanded: false,
-  //     city: "New York",
-  //   },
-  //   {
-  //     id: 5,
-  //     email: "m@m.com",
-  //     name: "Sayago Bustamante",
-  //     instruments: ["Violin", "Piano", "Bass"],
-  //     expanded: false,
-  //     city: "Boston",
-  //   },
-  //   {
-  //     id: 6,
-  //     email: "z@z.com",
-  //     name: "Bustamante Isabel",
-  //     instruments: ["Violin", "Piano", "Guitar"],
-  //     expanded: false,
-  //     city: "Madrid",
-  //   },
-  //   {
-  //     id: 7,
-  //     email: "y@y.com",
-  //     firstname: "Maria Bustamante",
-  //     instruments: ["Bass", "Piano"],
-  //     expanded: false,
-  //     city: "Barcelona",
-  //   },
-  // ];
-
   useEffect(() => {
     if (!navigator.geolocation) {
       setStatus("Geolocation is not supported by the browser");
@@ -126,10 +67,6 @@ const SearchFriends = () => {
   };
 
   function handleClick(email) {
-    console.log(email);
-    console.log("Clicking...");
-    console.log(friends);
-
     const friendsUpdate = friends.map((obj) =>
       obj.data.email === email
         ? {
@@ -165,12 +102,6 @@ const SearchFriends = () => {
       getCityFromGeoObject();
       filterFriendsData();
     }
-
-    //LocationIQ
-    /* fetch(`
-https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f0&lat=${lat}&lon=${lng}&format=json`)
-      .then((response) => response.json())
-      .then((data) => console.log(data)); */
   };
 
   const getCityFromGeoObject = () => {
@@ -195,6 +126,7 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
   };
 
   const addToFriends = async (friendData) => {
+    console.log(friendData.email);
     let response;
     response = await fetch(URL_API_UPDATE_FRIENDS, {
       method: "PUT",
@@ -207,9 +139,6 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
         friend: {
           email: friendData.email,
           expanded: false,
-          firstname: friendData.firstname,
-          city: friendData.city,
-          instruments: friendData.instruments,
         },
       }),
     }).catch((err) => {
@@ -219,22 +148,30 @@ https://us1.locationiq.com/v1/reverse.php?key=pk.9fd1cc136d3a193aaf0c9d7c7d3b77f
     });
 
     if (response.ok) {
-      response = await response.json();
-      console.log(response);
-      let responseUpdatedUser = await fetch(
+      // const userFriends = await response.json();
+      // console.log(userFriends);
+      let userDataUpdatedResponse = await fetch(
         `https://band-app-back.herokuapp.com/users/${userEmail}`
       );
-      responseUpdatedUser = await responseUpdatedUser.json();
-      console.log(authData);
-      const authDataUpdated = {
-        ...authData,
-        friends: responseUpdatedUser.friends,
+      if (userDataUpdatedResponse.ok) {
+        userDataUpdatedResponse = await userDataUpdatedResponse.json();
+      }
+
+      console.log(userDataUpdatedResponse.friends);
+
+      const currentUser = JSON.parse(localStorage.getItem("userData"));
+      console.log("current user in LocalStorage", currentUser);
+      const updateUser = {
+        ...currentUser,
+        friends: userDataUpdatedResponse.friends,
       };
 
-      localStorage.setItem("userData", JSON.stringify(authDataUpdated));
-      setAuthData((prev) => {
-        return { ...prev, friends: responseUpdatedUser.friends };
-      });
+      console.log("user with friends", currentUser);
+
+      localStorage.setItem("userData", JSON.stringify(updateUser));
+      const userSession = localStorage.getItem("userData");
+      console.log("new user in LS", userSession);
+      setAuthData(JSON.parse(userSession));
 
       console.log(authData);
       alert("Friend added succesfully");

@@ -17,58 +17,47 @@ const Friends = () => {
     return history.push(screen);
   };
 
-  const [friends, setFriends] = useState(authData.friends);
+  const [friends, setFriends] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
 
   useEffect(() => {
-    setFriends(authData.friends);
-    console.log(friends);
     // setFriends(authData.friends);
+
     console.log("friends empty", friends);
     console.log("user logged in", authData.friends);
 
-    const fetchInfo = async (email) => {
+    const fetchDataUser = async (email) => {
       let response = await fetch(
         `https://band-app-back.herokuapp.com/users/${email}`
       );
-      response = await response.json();
-      return response;
+      if (response.ok) {
+        console.log("Imprimo response de cada usuario", response);
+        return await response.json();
+      } else {
+        console.log("No fetchea cada amigo");
+      }
     };
 
-    const fetchData = async (data) => {
-      data.map((element) => {
-        let responseData = fetchInfo(element.email);
-        // .then((data) =>
-        console.log(data);
+    const fetchByEmail = (data) => {
+      console.log("Imprimo array de amigos a fetchear", data);
 
-        console.log(responseData);
-        //setFriendsList((prev) => [...prev, responseData]);
+      data.map(async (element) => {
+        let responseData = await fetchDataUser(element.email);
+        console.log("Imprimo cada amigo fetcheado", responseData);
+        setFriends((prev) => [...prev, responseData]);
       });
+      localStorage.setItem("userData", JSON.stringify(authData));
+
+      setAuthData([...friends]);
     };
+    fetchByEmail(authData.friends);
 
-    // const fetchData = (data) => {
-    //   data.map((element) => {
-    //     fetchInfo(element.email).then((response) =>
-    //       setFriends((prev) => [...prev, response])
-    //     );
-    //   });
-    // };
-
-    // authData.friends.map((element) => {
-    //   fetchInfo(element.email).then((response) =>
-    //     setFriends((prev) => [...prev, response])
-    //   );
-    // });
-    console.log(authData.friends);
-    fetchData(authData.friends);
-
-    //console.log(updatingFriends);
-    console.log(friends);
-    console.log(friendsList);
-
-    //setFriends(authData.friends);
-    setAuthData({ ...authData, friends: friendsList });
-    console.log(authData);
+    console.log("Lista de amigos actualizada", friends);
+    console.log("AuthData actualizada con amigos fetcheados", authData.friends);
+    console.log(
+      "userData en localStorage actualizada",
+      localStorage.getItem("userData")
+    );
   }, []);
 
   function handleClick(email) {

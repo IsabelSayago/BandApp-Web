@@ -44,7 +44,10 @@ const Menu = ({ open, recovery, welcome }) => {
       {!welcome && (
         <StyledMenu open={open} recovery={recovery}>
           <a href="/signup">SignUp</a>
+          <Link to="/signup">Otro SignUp - Test</Link>
+
           <a href="/login">Login</a>
+          <Link to="/login">Otro Login - Test</Link>
           {/* <a href="/myprofile">About</a> */}
         </StyledMenu>
       )}

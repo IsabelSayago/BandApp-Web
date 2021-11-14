@@ -26,10 +26,6 @@ const SignUp = () => {
     history.push(screen);
   };
 
-  const saveLocalStorage = (dataFromUser) => {
-    return localStorage.setItem("userData", JSON.stringify(dataFromUser));
-  };
-
   const addInstrument = () => {
     const name = window.prompt("Type instrument");
     if (name) {
@@ -41,6 +37,7 @@ const SignUp = () => {
   const deleteInstrument = (id) => {
     return setInstruments((prev) => prev.filter((obj) => obj.id !== id));
   };
+
   return (
     <div className="background">
       <div className="burgerMenu">
@@ -96,6 +93,7 @@ const SignUp = () => {
                   friends: [],
                   genres: [],
                   bio: "This is your intro",
+                  expanded: false,
                 }),
               }).catch((err) => {
                 if (err & err.message) {

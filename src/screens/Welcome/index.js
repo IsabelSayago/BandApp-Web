@@ -10,7 +10,7 @@ const Welcome = () => {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
 
-  const active = false;
+  const active = true;
 
   return (
     <div className="background">

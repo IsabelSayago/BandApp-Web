@@ -20,7 +20,9 @@ const Friends = () => {
   const [friends, setFriends] = useState([]);
 
   // useEffect() después de montarse el componente.
-  // Trae la data de los amigos del usuario
+  // 1. Trae la data de los amigos del usuario
+  // 2. Actualiza el estado "friends"
+  // 3. Renderiza "friends" con la nueva data
   useEffect(() => {
     console.log("friends empty", friends);
     console.log("user logged in", authData.friends);
@@ -55,6 +57,8 @@ const Friends = () => {
     fetchByEmail(authData.friends);
   }, []);
 
+  // Detecta el update de friends.
+  // Setea/actualiza authData (variable global del contexto) con data fetcheada de amigos
   useEffect(() => {
     console.log(friends);
     setAuthData((prev) => {
@@ -62,6 +66,7 @@ const Friends = () => {
     });
   }, [friends]);
 
+  // Detecta cambio en authData y actualiza el localStorage
   useEffect(() => {
     console.log(authData);
     localStorage.setItem("userData", JSON.stringify(authData));

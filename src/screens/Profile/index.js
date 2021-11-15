@@ -72,6 +72,7 @@ const Profile = () => {
           bio: bio,
           city: city,
           instruments: selectInstruments,
+          expanded: authData.expanded,
         }),
       }).catch((err) => {
         if (err & err.message) {
@@ -91,7 +92,7 @@ const Profile = () => {
         console.log(localStorage.getItem("userData"));
         alert("Successfully updated!");
       } else {
-        alert("Not updated");
+        alert("Not updated. Try again!");
       }
       // actions.resetForm();
 

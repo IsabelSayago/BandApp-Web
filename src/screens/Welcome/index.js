@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Burger from "../../components/Burger";
 import ButtonReunions from "../../components/ButtonReunions";
 import DetailsReunions from "../../components/DetailsReunions";
+import GlobalContext from "../../contexts/global";
 import Menu from "../../components/Menu";
 import logo from "../../assets/logo.png";
 
 const Welcome = () => {
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState(false);
-
+  const { authData, setAuthData } = useContext(GlobalContext);
   const active = true;
+
+  useEffect(() => {
+    console.log(authData);
+  }, []);
 
   return (
     <div className="background">

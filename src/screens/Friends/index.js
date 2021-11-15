@@ -18,14 +18,14 @@ const Friends = () => {
   };
 
   const [friends, setFriends] = useState([]);
-  const [friendsList, setFriendsList] = useState([]);
 
+  // useEffect() después de montarse el componente.
+  // Trae la data de los amigos del usuario
   useEffect(() => {
-    // setFriends(authData.friends);
-
     console.log("friends empty", friends);
     console.log("user logged in", authData.friends);
 
+    // Fetch que trae la data de un usuario mediante el mail
     const fetchDataUser = async (email) => {
       let response = await fetch(
         `https://band-app-back.herokuapp.com/users/${email}`
@@ -38,6 +38,8 @@ const Friends = () => {
       }
     };
 
+    // Declaración de función que itera el array de amigos
+    // por cada uno ejecuta el Fetch de traer la data
     const fetchByEmail = (data) => {
       console.log("Imprimo array de amigos a fetchear", data);
 
@@ -45,20 +47,25 @@ const Friends = () => {
         let responseData = await fetchDataUser(element.email);
         console.log("Imprimo cada amigo fetcheado", responseData);
         setFriends((prev) => [...prev, responseData]);
+        return responseData;
       });
-      localStorage.setItem("userData", JSON.stringify(authData));
-
-      setAuthData([...friends]);
     };
-    fetchByEmail(authData.friends);
 
-    console.log("Lista de amigos actualizada", friends);
-    console.log("AuthData actualizada con amigos fetcheados", authData.friends);
-    console.log(
-      "userData en localStorage actualizada",
-      localStorage.getItem("userData")
-    );
+    // Ejecuta las funciones de fetch de amigos
+    fetchByEmail(authData.friends);
   }, []);
+
+  useEffect(() => {
+    console.log(friends);
+    setAuthData((prev) => {
+      return { ...prev, friends: friends };
+    });
+  }, [friends]);
+
+  useEffect(() => {
+    console.log(authData);
+    localStorage.setItem("userData", JSON.stringify(authData));
+  }, [authData]);
 
   function handleClick(email) {
     console.log(email);

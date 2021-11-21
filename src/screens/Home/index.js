@@ -79,71 +79,61 @@ const Home = () => {
   //   });
 
   return (
-    <Router>
-      <>
-        <div>
-          <Container>
-            <div
-              style={{
-                display: "flex",
-                flex: "2",
-                justifyItems: "flex-start",
-                alignItems: "flex-start",
-                width: "100%",
-              }}
-            >
-              <Burger open={open} setOpen={setOpen} />
-              <Menu open={open} setOpen={setOpen} />
-            </div>
+    <>
+      <div>
+        <Container>
+          <div
+            style={{
+              display: "flex",
+              flex: "2",
+              justifyItems: "flex-start",
+              alignItems: "flex-start",
+              width: "100%",
+            }}
+          >
+            <Burger open={open} setOpen={setOpen} />
+            <Menu open={open} setOpen={setOpen} />
+          </div>
 
-            <div
-              className="homePicture"
-              style={{
-                backgroundImage: `url(${logo})`,
-              }}
-            ></div>
-            <div
-              style={{
-                alignItems: "center",
-                justifyItems: "flex-end",
-                flex: 1,
-              }}
-            >
-              <InnerContainer>
-                <Button onClick={() => redirectTo("/login")}>{login}</Button>
+          <div
+            className="homePicture"
+            style={{
+              backgroundImage: `url(${logo})`,
+            }}
+          ></div>
+          <div
+            style={{
+              alignItems: "center",
+              justifyItems: "flex-end",
+              flex: 1,
+            }}
+          >
+            <InnerContainer>
+              <Button onClick={() => redirectTo("/login")}>{login}</Button>
 
-                <Button
-                  onClick={() => alert("Google")}
-                  google={"true"}
-                ></Button>
-              </InnerContainer>
-              <InnerContainer align="center">
-                <LinkStyle onClick={() => redirectTo("/recovery")}>
-                  {forgotPassword}
-                </LinkStyle>
-                <hr
-                  style={{
-                    background: "white",
-                    height: "1px",
-                    width: "20%",
-                    marginBottom: "1px",
-                    border: "none",
-                  }}
-                />
-                <LinkStyle onClick={() => redirectTo("/signup")}>
-                  {haveAccount}
-                </LinkStyle>
-              </InnerContainer>
-            </div>
-          </Container>
-        </div>
-      </>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-    </Router>
+              <Button onClick={() => alert("Google")} google={"true"}></Button>
+            </InnerContainer>
+            <InnerContainer align="center">
+              <LinkStyle onClick={() => redirectTo("/recovery")}>
+                {forgotPassword}
+              </LinkStyle>
+              <hr
+                style={{
+                  background: "white",
+                  height: "1px",
+                  width: "20%",
+                  marginBottom: "1px",
+                  border: "none",
+                }}
+              />
+              <LinkStyle onClick={() => redirectTo("/signup")}>
+                {haveAccount}
+              </LinkStyle>
+            </InnerContainer>
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

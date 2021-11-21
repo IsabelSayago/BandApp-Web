@@ -12,8 +12,6 @@ import TextInput from "../../components/TextInput";
 import logo from "../../assets/logo.png";
 import { useHistory } from "react-router";
 
-// import { useAuth } from "../../components/ProvideAuth";
-
 function Login() {
   const [open, setOpen] = useState(false);
   const { setAuthData, setAuthenticated } = useContext(GlobalContext);

@@ -61,6 +61,7 @@ const SignUp = () => {
               passwordConfirmation: "",
               city: "",
               instruments: [],
+              expanded: false,
             }}
             validationSchema={Yup.object({
               name: Yup.string().required("Required"),
@@ -93,7 +94,7 @@ const SignUp = () => {
                   friends: [],
                   genres: [],
                   bio: "This is your intro",
-                  expanded: false,
+                  expanded: values.expanded,
                 }),
               }).catch((err) => {
                 if (err & err.message) {

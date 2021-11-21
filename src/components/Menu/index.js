@@ -16,20 +16,7 @@ const Menu = ({ open, recovery, welcome }) => {
           <Link to="/friends">Friends</Link>
           <Link to="/searchfriends">Search Friends</Link>
           <Link to="/groups">Groups</Link>
-          {/* <Link to="/signup"> Another SignUp </Link>
-          <a href="/signup">SignUp</a>
-          <a href="/myprofile">Another Profile</a>*/}
 
-          {/* <ul>
-            <li onClick={() => navigate("/myprofile")}>My Profile</li>
-          </ul> */}
-          {/* <Link></Link>
-          <a href="/myprofile">My Profile</a>
-          <a href="/friends">Friends</a>
-          <a href="/groups">Groups</a>
-          <a href="/myprofile">Bookings</a>
-          <a href="/searchfriends">Search Friends</a>
-          <a href="/myprofile">Search Rooms</a> */}
           <button
             className="logout"
             onClick={() => {
@@ -43,12 +30,8 @@ const Menu = ({ open, recovery, welcome }) => {
       )}
       {!welcome && (
         <StyledMenu open={open} recovery={recovery}>
-          <a href="/signup">SignUp</a>
-          <Link to="/signup">Otro SignUp - Test</Link>
-
-          <a href="/login">Login</a>
-          <Link to="/login">Otro Login - Test</Link>
-          {/* <a href="/myprofile">About</a> */}
+          <Link to="/signup">SignUp</Link>
+          <Link to="/login">Login</Link>
         </StyledMenu>
       )}
     </div>

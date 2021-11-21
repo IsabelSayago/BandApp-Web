@@ -23,35 +23,36 @@ const Friends = () => {
   // 1. Trae la data de los amigos del usuario
   // 2. Actualiza el estado "friends"
   // 3. Renderiza "friends" con la nueva data
+
+  // Fetch que trae la data de un usuario mediante el mail
+  const fetchDataUser = async (email) => {
+    let response = await fetch(
+      `https://band-app-back.herokuapp.com/users/${email}`
+    );
+    if (response.ok) {
+      console.log("Imprimo response de cada usuario", response);
+      return await response.json();
+    } else {
+      console.log("No fetchea cada amigo");
+    }
+  };
+
+  // Declaración de función que itera el array de amigos
+  // por cada uno ejecuta el Fetch de traer la data
+  const fetchByEmail = (data) => {
+    console.log("Imprimo array de amigos a fetchear", data);
+
+    data.map(async (element) => {
+      let responseData = await fetchDataUser(element.email);
+      console.log("Imprimo cada amigo fetcheado", responseData);
+      setFriends((prev) => [...prev, responseData]);
+      return responseData;
+    });
+  };
+
   useEffect(() => {
     console.log("friends empty", friends);
     console.log("user logged in", authData.friends);
-
-    // Fetch que trae la data de un usuario mediante el mail
-    const fetchDataUser = async (email) => {
-      let response = await fetch(
-        `https://band-app-back.herokuapp.com/users/${email}`
-      );
-      if (response.ok) {
-        console.log("Imprimo response de cada usuario", response);
-        return await response.json();
-      } else {
-        console.log("No fetchea cada amigo");
-      }
-    };
-
-    // Declaración de función que itera el array de amigos
-    // por cada uno ejecuta el Fetch de traer la data
-    const fetchByEmail = (data) => {
-      console.log("Imprimo array de amigos a fetchear", data);
-
-      data.map(async (element) => {
-        let responseData = await fetchDataUser(element.email);
-        console.log("Imprimo cada amigo fetcheado", responseData);
-        setFriends((prev) => [...prev, responseData]);
-        return responseData;
-      });
-    };
 
     // Ejecuta las funciones de fetch de amigos
     fetchByEmail(authData.friends);

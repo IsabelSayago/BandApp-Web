@@ -24,9 +24,11 @@ const PublicRoute = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={(props) =>
         authenticated ? (
-          <Redirect to={{ pathname: "/welcome", state: { from: location } }} />
+          <Redirect
+            to={{ pathname: "/welcome", state: { from: props.location } }}
+          />
         ) : (
           children
         )

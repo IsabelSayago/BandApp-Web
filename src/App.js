@@ -74,8 +74,12 @@ function App() {
         <PrivateRoute path="/chat">
           <Chat />
         </PrivateRoute>
+
         <PublicRoute path="/login">
           <Login />
+        </PublicRoute>
+        <PublicRoute exact path="/">
+          <Home />
         </PublicRoute>
         <PublicRoute path="/home">
           <Home />
@@ -85,9 +89,6 @@ function App() {
         </PublicRoute>
         <PublicRoute path="/signup">
           <SignUp />
-        </PublicRoute>
-        <PublicRoute exact path="/">
-          <Home />
         </PublicRoute>
       </Switch>
     </GlobalContext.Provider>

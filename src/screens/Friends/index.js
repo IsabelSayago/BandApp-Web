@@ -154,9 +154,16 @@ const Friends = () => {
                         {friend.instruments &&
                           friend.instruments.map((instrument) => {
                             return (
-                              <h6 style={{ margin: "0.2rem" }} key={uuidv4()}>
-                                {instrument.name}
-                              </h6>
+                              <>
+                                {instrument.active && (
+                                  <h6
+                                    style={{ margin: "0.2rem" }}
+                                    key={uuidv4()}
+                                  >
+                                    {instrument.name}
+                                  </h6>
+                                )}
+                              </>
                             );
                           })}
                       </div>
@@ -203,9 +210,13 @@ const Friends = () => {
                       {friend.instruments &&
                         friend.instruments.map((instrument) => {
                           return (
-                            <h6 style={{ margin: "0.2rem" }} key={uuidv4()}>
-                              {instrument.name}
-                            </h6>
+                            <>
+                              {instrument.active && (
+                                <h6 style={{ margin: "0.2rem" }} key={uuidv4()}>
+                                  {instrument.name}
+                                </h6>
+                              )}
+                            </>
                           );
                         })}
                     </div>

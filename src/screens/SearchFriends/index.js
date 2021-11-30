@@ -160,8 +160,9 @@ const SearchFriends = () => {
                     filterCity === "") &&
                   friend.data.instruments.some(
                     (inst) =>
-                      inst.name.includes(filterInstrument) ||
-                      filterInstrument === ""
+                      inst.active === true &&
+                      (inst.name.includes(filterInstrument) ||
+                        filterInstrument === "")
                   )
                 );
               })
@@ -188,9 +189,15 @@ const SearchFriends = () => {
                       <div className="friendInformation">
                         {friend.data.firstname} | {friend.data.city} |{" "}
                         {friend.data.instruments ? (
-                          friend.data.instruments.map((inst) => (
-                            <div key={uuidv4()}>{inst.name}</div>
-                          ))
+                          friend.data.instruments.map((inst) => {
+                            return (
+                              <>
+                                {inst.active && (
+                                  <div key={uuidv4()}>{inst.name}</div>
+                                )}
+                              </>
+                            );
+                          })
                         ) : (
                           <h6>No instruments added</h6>
                         )}
@@ -243,9 +250,15 @@ const SearchFriends = () => {
                       </h6>
                       <h6 style={{ margin: "0rem" }}>{friend.data.city}</h6>
                       {friend.data.instruments ? (
-                        friend.data.instruments.map((inst) => (
-                          <div key={uuidv4()}>{inst.name}</div>
-                        ))
+                        friend.data.instruments.map((inst) => {
+                          return (
+                            <>
+                              {inst.active && (
+                                <div key={uuidv4()}>{inst.name}</div>
+                              )}
+                            </>
+                          );
+                        })
                       ) : (
                         <h6>No instruments added</h6>
                       )}

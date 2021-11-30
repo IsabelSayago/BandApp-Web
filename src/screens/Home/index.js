@@ -2,7 +2,7 @@ import "../../index.css";
 import "../Home/index.css";
 
 import { Button, Container, InnerContainer, LinkStyle } from "../../styles";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import {
   Route,
@@ -15,8 +15,7 @@ import Burger from "../../components/Burger";
 import GlobalContext from "../../contexts/global";
 import Login from "../Login";
 import Menu from "../../components/Menu";
-import { getAnalytics } from "firebase/analytics";
-import { initializeApp } from "firebase/app";
+import { auth } from "../../components/Google";
 import logo from "../../assets/logo.png";
 
 const Home = () => {
@@ -32,21 +31,45 @@ const Home = () => {
     history.push(screen);
   };
 
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyCMsd0TqlVtLzbcZqZhScOuydTLUAQiK7Y",
-  //   authDomain: "bandapp-607b4.firebaseapp.com",
-  //   databaseURL: "https://bandapp-607b4-default-rtdb.firebaseio.com",
-  //   projectId: "bandapp-607b4",
-  //   storageBucket: "bandapp-607b4.appspot.com",
-  //   messagingSenderId: "1022940869928",
-  //   appId: "1:1022940869928:web:e83d9e6f1b0fbd16ac4c1d",
-  //   measurementId: "G-RWNCEY2WVM",
+  // const signInWithGoogle = () => {
+  //   const provider = new GoogleAuthProvider();
+
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       console.log(user);
+
+  //       setAuthenticated(true);
+  //       console.log(user);
+  //       localStorage.setItem("userData", JSON.stringify(user));
+  //       setAuthData(user);
+
+  //       redirectTo("/welcome");
+  //       alert("Welcome to BandApp!");
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+
+  //   // signInWithPopup(auth, provider)
+  //   //   .then((result) => {
+  //   //     console.log(result);
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log(err);
+  //   //   });
   // };
-
-  // const app = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(app);
-
-  // const provider = new GoogleAuthProvider();
 
   // const auth = getAuth();
 

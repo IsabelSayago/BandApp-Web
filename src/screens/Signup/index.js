@@ -70,7 +70,8 @@ const SignUp = () => {
                 .required("Required"),
               password: Yup.string()
                 .required("Required")
-                .min(6, "Password must be at least 6 characters"),
+                .min(6, "Password must be at least 6 characters")
+                .max(12, "Password must be 12 characters maximum"),
               passwordConfirmation: Yup.string().oneOf(
                 [Yup.ref("password"), null],
                 "Passwords must match"

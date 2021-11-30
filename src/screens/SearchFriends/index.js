@@ -2,22 +2,17 @@ import { FiArrowLeft, FiSearch } from "react-icons/fi";
 import React, { useContext, useEffect, useState } from "react";
 
 import Avatar from "boring-avatars";
+import Geolocation from "../../components/Geolocation";
 import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
 import { v4 as uuidv4 } from "uuid";
-
-//import Friends from "../Friends";
 
 const SearchFriends = () => {
   const { authData, setAuthData } = useContext(GlobalContext);
 
   const [userEmail, setUserEmail] = useState(authData.email);
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
-  const [city, setCity] = useState("");
+
   const [friends, setFriends] = useState([]);
-  const [geoObject, setGeoObject] = useState(null);
-  const [status, setStatus] = useState(null);
   const [filterCity, setFilterCity] = useState("");
   const [filterInstrument, setFilterInstrument] = useState("");
 
@@ -25,49 +20,18 @@ const SearchFriends = () => {
   const URL_API_UPDATE_FRIENDS =
     "https://band-app-back.herokuapp.com/users/friend";
 
-  let latlng;
-  let latitude;
-  let longitude;
-
-  // useEffect(() => {
-  //   // if (!navigator.geolocation) {
-  //   //   setStatus("Geolocation is not supported by the browser");
-  //   // } else {
-  //   //   setStatus("Locating...");
-  //   //   navigator.geolocation.getCurrentPosition(
-  //   //     (position) => {
-  //   //       console.log(position);
-  //   //       latitude = position.coords.latitude;
-  //   //       longitude = position.coords.longitude;
-  //   //       setLat(latitude);
-  //   //       setLng(longitude);
-  //   //       console.log(lat);
-  //   //       console.log(lng);
-  //   //       latlng = lat + "," + lng;
-  //   //       console.log(latlng);
-  //   //     },
-  //   //     () => {
-  //   //       setStatus("Unable to retrieve your location");
-  //   //     }
-  //   //   );
-  //   // }
-  // }, []);
+  let history = useHistory();
 
   useEffect(() => {
-    async function fetchFriends() {
-      let response = await fetch(URL_API);
-      response = await response.json();
-      console.log(response);
-      setFriends(response);
-      console.log(friends);
-    }
-
     fetchFriends();
+  }, []);
 
-    getLocation();
-  }, [lat, lng]);
-
-  let history = useHistory();
+  async function fetchFriends() {
+    let response = await fetch(URL_API);
+    response = await response.json();
+    console.log(response);
+    setFriends(response);
+  }
 
   const redirectTo = (screen) => {
     return history.push(screen);
@@ -86,75 +50,6 @@ const SearchFriends = () => {
     setFriends(friendsUpdate);
     console.log(friends);
   }
-
-  const filterLevel2 = (component) => {
-    return component.types.includes("administrative_area_level_1");
-  };
-
-  const clickLocation = () => {
-    let latlng = "-34.5848828,-58.4177209";
-
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&result_type=administrative_area_level_1&key=AIzaSyDyVQW9oSjLuHbjDiNRmgRHmixCOK2J-k4`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setGeoObject(data);
-        if (geoObject !== null) {
-          getCityFromGeoObject();
-          filterFriendsData();
-        }
-      });
-  };
-
-  const getLocation = () => {
-    if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by the browser");
-    } else {
-      setStatus("Locating...");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-          latitude = position.coords.latitude;
-          longitude = position.coords.longitude;
-
-          setLat(latitude);
-          setLng(longitude);
-          console.log(lat);
-          console.log(lng);
-          // latlng = lat + "," + lng;
-          latlng = "-34.5848828,-58.4177209";
-          console.log(latlng);
-        },
-        () => {
-          setStatus("Unable to retrieve your location");
-        }
-      );
-    }
-  };
-
-  const getCityFromGeoObject = () => {
-    console.log(geoObject);
-    let filteredArray;
-    filteredArray =
-      geoObject.results[0].address_components.filter(filterLevel2);
-    if (filteredArray.length) {
-      setCity(filteredArray[0].long_name);
-
-      console.log(filteredArray[0].long_name);
-      console.log(city);
-      console.log(status);
-    }
-    return console.log(city);
-  };
-
-  const filterFriendsData = () => {
-    console.log(friends);
-    let friendsWithFilter = friends.filter((a) => a.data.city.includes(city));
-
-    console.log(friendsWithFilter);
-    return setFriends(friendsWithFilter);
-  };
 
   const addToFriends = async (friendData) => {
     console.log(friendData.email);
@@ -179,8 +74,6 @@ const SearchFriends = () => {
     });
 
     if (response.ok) {
-      // const userFriends = await response.json();
-      // console.log(userFriends);
       let userDataUpdatedResponse = await fetch(
         `https://band-app-back.herokuapp.com/users/${userEmail}`
       );
@@ -235,9 +128,7 @@ const SearchFriends = () => {
         <div className="searchContainer">
           <div className="filterSearch">
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <button className="buttonMyLocation" onClick={clickLocation}>
-                My Location
-              </button>
+              <Geolocation friends={friends} setFriends={setFriends} />
               <input
                 type="text"
                 className="inputCity"

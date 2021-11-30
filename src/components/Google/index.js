@@ -5,29 +5,30 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBdu2_tb7Dv815pp7CJSN5Cx6sBUL74ipI",
-  authDomain: "loginapp-4c376.firebaseapp.com",
-  projectId: "loginapp-4c376",
-  storageBucket: "loginapp-4c376.appspot.com",
-  messagingSenderId: "60057457075",
-  appId: "1:60057457075:web:aaa78099a605cf4000fbc6",
-  measurementId: "G-XJV5RVY9TG",
+  apiKey: "AIzaSyCMsd0TqlVtLzbcZqZhScOuydTLUAQiK7Y",
+  authDomain: "bandapp-607b4.firebaseapp.com",
+  databaseURL: "https://bandapp-607b4-default-rtdb.firebaseio.com",
+  projectId: "bandapp-607b4",
+  storageBucket: "bandapp-607b4.appspot.com",
+  messagingSenderId: "1022940869928",
+  appId: "1:1022940869928:web:e83d9e6f1b0fbd16ac4c1d",
+  measurementId: "G-RWNCEY2WVM",
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
+//const analytics = getAnalytics(app);
 
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
 
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+export const auth = getAuth(app);

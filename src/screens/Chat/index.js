@@ -1,19 +1,28 @@
 import "./index.css";
 
+import React, { useContext, useEffect, useState } from "react";
+
 import Avatar from "boring-avatars";
 import { FcRating } from "react-icons/fc";
 import { FiArrowLeft } from "react-icons/fi";
-import React from "react";
+import GlobalContext from "../../contexts/global";
 import { useHistory } from "react-router";
 
 //import Burger from "../../components/Burger";
 
 const Chat = () => {
   let history = useHistory();
+  const { authData, setAuthData } = useContext(GlobalContext);
 
   const redirectTo = (screen) => {
     return history.push(screen);
   };
+
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    setUserName(authData.selectedFriend);
+  });
 
   return (
     <div className="background">
@@ -40,7 +49,7 @@ const Chat = () => {
               colors={["#295264", "#FAD9A6", "#BD2F28", "#89373D", "#142433"]}
             />
             <div className="details">
-              <h3>First Name</h3>
+              <h3>{userName}</h3>
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <Instrument title={"Guitar"} />
                 <Instrument title={"Bass"} />

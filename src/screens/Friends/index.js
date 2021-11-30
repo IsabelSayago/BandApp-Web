@@ -178,7 +178,13 @@ const Friends = () => {
                       <button
                         type="button"
                         className="chatButton"
-                        onClick={() => redirectTo("/chat")}
+                        onClick={() => {
+                          setAuthData({
+                            ...authData,
+                            selectedFriend: friend.firstname,
+                          });
+                          redirectTo("/chat");
+                        }}
                       >
                         Chat
                       </button>

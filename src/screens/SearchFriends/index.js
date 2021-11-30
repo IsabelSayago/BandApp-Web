@@ -187,7 +187,7 @@ const SearchFriends = () => {
                         ]}
                       />
                       <div className="friendInformation">
-                        {friend.data.firstname} | {friend.data.city} |{" "}
+                        {friend.data.firstname} | {friend.data.city}{" "}
                         {friend.data.instruments ? (
                           friend.data.instruments.map((inst) => {
                             return (
@@ -218,7 +218,13 @@ const SearchFriends = () => {
                         Add to Friends
                       </button>
                       <button
-                        onClick={() => redirectTo("/chat")}
+                        onClick={() => {
+                          setAuthData({
+                            ...authData,
+                            selectedFriend: friend.data.firstname,
+                          });
+                          redirectTo("/chat");
+                        }}
                         type="button"
                         className="addToGroupButton"
                       >
@@ -245,16 +251,26 @@ const SearchFriends = () => {
                       ]}
                     />
                     <div className="friendInformation">
-                      <h6 style={{ margin: "0rem", fontSize: "0.7rem" }}>
+                      <h6
+                        style={{
+                          margin: "0rem",
+                          fontSize: "0.9rem",
+                          color: "black",
+                        }}
+                      >
                         {friend.data.firstname}
                       </h6>
-                      <h6 style={{ margin: "0rem" }}>{friend.data.city}</h6>
+                      <h6 style={{ margin: "0rem", color: "black" }}>
+                        {friend.data.city}
+                      </h6>
                       {friend.data.instruments ? (
                         friend.data.instruments.map((inst) => {
                           return (
                             <>
                               {inst.active && (
-                                <div key={uuidv4()}>{inst.name}</div>
+                                <div style={{ color: "black" }} key={uuidv4()}>
+                                  {inst.name}
+                                </div>
                               )}
                             </>
                           );

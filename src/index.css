@@ -367,7 +367,7 @@ body {
 }
 
 .friend {
-  height: 5rem;
+  height: 6rem;
   width: 22.5rem;
   background-color: #a88989;
   margin: 0.4rem;
@@ -387,10 +387,11 @@ body {
   flex-direction: column;
   align-items: flex-start;
   border-radius: 1rem;
+  color: white;
 }
 
 .friendExpanded {
-  height: 5rem;
+  height: 8rem;
   width: 22.5rem;
   background-color: #a88989;
   margin: 0.4rem;
